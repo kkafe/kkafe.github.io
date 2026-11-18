@@ -1,0 +1,168 @@
+/**
+ * TOUT LE TEXTE DU SITE EST ICI.
+ * Modifiez ce fichier pour changer une phrase, ajouter un projet, une compétence ou un voyage :
+ * le site se met à jour tout seul (npm run dev).
+ */
+import type { LogoName } from '../components/Logo';
+
+export const person = {
+  firstName: 'Kiliane',
+  lastName: 'Kafe',
+  title: 'Stagiaire développeur',
+  status: 'Étudiant en 3e année de BUT Informatique',
+  school: 'IUT de Blagnac',
+  location: 'Toulouse, Beauzelle',
+  email: 'k.kiliane976@gmail.com',
+  github: 'https://github.com/kkafe',
+  linkedin: 'https://www.linkedin.com/in/kiliane-kafe/',
+  // Fichier placé dans public/cv/
+  cv: 'cv/CV-Kiliane-Kafe.pdf',
+};
+
+export const nav = [
+  { id: 'profil', label: 'Profil' },
+  { id: 'experience', label: 'Expérience' },
+  { id: 'projets', label: 'Projets' },
+  { id: 'competences', label: 'Compétences' },
+  { id: 'formation', label: 'Formation' },
+  { id: 'contact', label: 'Contact' },
+];
+
+// Le paragraphe d'accroche de l'accueil
+export const intro =
+  "Étudiant en troisième année de BUT Informatique à l'IUT de Blagnac, je conçois et développe des applications web et des bases de données, de l'analyse des besoins jusqu'à la mise en œuvre.";
+
+export const about = {
+  paragraphs: [
+    "Mon approche part toujours du besoin des utilisateurs. Je mène des entretiens pour recueillir leurs attentes, je conçois la solution en équipe, puis je la développe, de l'interface web jusqu'à la base de données.",
+    "Dans le cadre de ma formation, j'ai également réalisé des projets qui m'ont permis d'explorer d'autres domaines, notamment un jeu de type Bomberman avec le moteur Godot et une simulation du jeu de la vie.",
+  ],
+  facts: [
+    { label: 'Formation', value: 'BUT Informatique', detail: 'IUT de Blagnac, 2024–2027' },
+    { label: 'Baccalauréat', value: 'Mention Bien', detail: 'Mathématiques, physique-chimie' },
+    { label: 'Langues', value: 'Français, anglais' },
+    { label: 'Localisation', value: 'Toulouse, Beauzelle' },
+  ] as { label: string; value: string; detail?: string }[],
+};
+
+/* ---------- Expérience professionnelle ---------- */
+export type Job = { role: string; company: string; type: string; points: string[]; tech?: LogoName[] };
+
+export const experiences: Job[] = [
+  {
+    role: 'Développeur web',
+    company: 'Assemblée Départementale de Mayotte',
+    type: 'Stage',
+    points: [
+      "Développement d'un portail web interne de gestion des ressources humaines regroupant une FAQ RH, les actualités RH et un système de tickets d'assistance.",
+      'Analyse des besoins des utilisateurs et gestion de la base de données.',
+    ],
+  },
+  {
+    role: 'Assistant informatique',
+    company: 'Sogéa',
+    type: "Emploi d'été",
+    points: [
+      "Mise à jour de l'inventaire du matériel et des logiciels informatiques.",
+      "Développement de compétences en organisation, en autonomie et en travail d'équipe.",
+    ],
+  },
+];
+
+/* ---------- Projets ----------
+ * tech : logos affichés sur la carte (noms de la liste LogoName dans components/Logo.tsx)
+ * link : facultatif, par exemple le dépôt GitHub du projet
+ */
+export type Project = {
+  category: string;
+  title: string;
+  context?: string;
+  description: string;
+  highlights?: string[];
+  tech?: LogoName[];
+  link?: { label: string; href: string };
+};
+
+export const projects: Project[] = [
+  {
+    category: 'Application web',
+    title: 'Site e-commerce',
+    context: 'Projet en équipe, pour un client',
+    description: "Conception et développement d'une application e-commerce complète.",
+    highlights: [
+      'Gestion des produits, des utilisateurs, des paniers et des commandes',
+      'Recueil et analyse des besoins du client lors d’entretiens',
+      'Conception et réalisation de la solution en équipe',
+    ],
+  },
+  {
+    category: 'Projet client',
+    title: "Implémentation d'un besoin client",
+    context: 'Projet en équipe',
+    description: "Développement d'une application répondant au besoin exprimé par un client.",
+    highlights: ['Collecte des besoins en entretien', 'Conception de la solution en équipe'],
+  },
+  {
+    category: 'Jeu vidéo',
+    title: 'Bomberman',
+    context: 'Projet de formation',
+    description: 'Conception et développement d’un jeu vidéo de type Bomberman avec le moteur de jeu Godot.',
+    tech: ['Godot'],
+  },
+  {
+    category: 'Simulation',
+    title: 'Jeu de la vie',
+    context: 'Projet de formation',
+    description:
+      "Implémentation de l'automate cellulaire de John Conway : une grille de cellules qui évolue à chaque génération selon des règles de voisinage.",
+  },
+];
+
+/* ---------- Formation et engagement : du plus récent au plus ancien ---------- */
+export type Step = { years: string; title: string; place: string; text?: string; current?: boolean };
+
+export const education: Step[] = [
+  { years: '2024 – 2027', title: 'BUT Informatique', place: 'IUT de Blagnac', text: 'Troisième année en cours.', current: true },
+  { years: '2024', title: 'Baccalauréat, mention Bien', place: 'Spécialités mathématiques et physique-chimie' },
+  { years: '2022 – 2024', title: 'Conseil Municipal des Jeunes', place: 'Mamoudzou, Mayotte', text: 'Engagement citoyen en politique locale.' },
+];
+
+/* ---------- Compétences ---------- */
+// Les outils avec un logo (voir components/Logo.tsx pour la liste des logos disponibles)
+export const toolGroups: { title: string; items: LogoName[] }[] = [
+  { title: 'Langages', items: ['Java', 'Python', 'C++'] },
+  { title: 'Développement web', items: ['HTML', 'CSS', 'PHP', 'JavaScript'] },
+  { title: 'Bases de données', items: ['SQL', 'PL/SQL', 'Cypher'] },
+  { title: 'Jeu vidéo', items: ['Godot'] },
+];
+
+// Les compétences sans logo
+export const otherSkills = [
+  { title: 'Méthodes', items: ['Gestion de projet', 'Analyse des besoins', 'Travail en équipe'] },
+  { title: 'Savoir-être', items: ['Communication', "Capacité d'adaptation", 'Autonomie'] },
+  { title: 'Autres', items: ['Économie', 'Français', 'Anglais'] },
+];
+
+/* ---------- Voyages ----------
+ * lat / lon : position du point sur le globe (latitude, longitude en degrés).
+ */
+export type Trip = { name: string; region: string; lat: number; lon: number; photo?: string };
+
+export const travels: Trip[] = [
+  { name: 'Sénégal', region: 'Afrique de l’Ouest', lat: 14.5, lon: -14.5 },
+  { name: 'Mayotte', region: 'Océan Indien', lat: -12.8, lon: 45.15 },
+  { name: 'Comores', region: 'Océan Indien', lat: -11.7, lon: 43.3 },
+  { name: 'Maurice', region: 'Océan Indien', lat: -20.25, lon: 57.55 },
+  { name: 'La Réunion', region: 'Océan Indien', lat: -21.1, lon: 55.5 },
+  { name: 'France', region: 'Europe', lat: 46.6, lon: 2.4 },
+  { name: 'Belgique', region: 'Europe', lat: 50.6, lon: 4.7 },
+  { name: 'Espagne', region: 'Europe', lat: 40.2, lon: -3.6 },
+];
+
+export const homes: Trip[] = [
+  { name: 'Toulouse', region: 'Europe', lat: 43.6, lon: 1.44 },
+];
+
+export const contact = {
+  sentence: 'Pour une opportunité de stage, un projet ou une question, n’hésitez pas à me contacter.',
+};

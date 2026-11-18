@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kiliane Kafe</title>
+    <meta name="description" content="Portfolio de Kiliane Kafe, étudiant en BUT Informatique à l'IUT de Blagnac : parcours, projets, compétences et contact." />
+    <meta property="og:title" content="Kiliane Kafe, étudiant en BUT Informatique" />
+    <meta property="og:description" content="Parcours, projets, compétences et contact." />
+    <meta name="theme-color" content="#58554c" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <script>
+      // Applique le thème avant l'affichage (clair par défaut), pour éviter un flash
+      try {
+        const saved = localStorage.getItem('theme');
+        const dark = saved ? saved === 'dark' : false;
+        document.documentElement.classList.toggle('dark', dark);
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

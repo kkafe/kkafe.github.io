@@ -1,0 +1,110 @@
+@import 'tailwindcss';
+
+/* Le mode sombre s'active avec la classe .dark sur <html> (bouton dans la barre du haut). Mode clair par défaut. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Palette du CV : blanc, gris clair, noir et le taupe de la colonne de gauche comme couleur d'accent.
+ * Changez les couleurs ici, tout le site suit.
+ */
+@theme {
+  /* Couleurs reprises du CV */
+  --color-paper: #ffffff; /* fond de page, blanc comme la feuille du CV */
+  --color-surface: #ffffff; /* cartes */
+  --color-subtle: #efedea; /* sections alternées, le gris clair de l'en-tête du CV */
+  --color-ink: #1d1c1a; /* texte principal, noir du CV */
+  --color-muted: #66635c; /* texte secondaire */
+  --color-line: #e2dfda; /* bordures */
+  --color-accent: #58554c; /* couleur d'accent, le taupe de la colonne du CV */
+  --color-accent-soft: #ecebe7; /* fond très léger teinté de taupe */
+  --color-on-accent: #ffffff;
+
+  --font-sans: 'Jost Variable', 'Jost', 'Futura', 'Century Gothic', system-ui, sans-serif;
+  --font-hand: 'Caveat Variable', 'Caveat', 'Segoe Script', cursive; /* la signature du logo */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark {
+  color-scheme: dark;
+  --color-paper: #141311;
+  --color-surface: #1c1b18;
+  --color-subtle: #181715;
+  --color-ink: #f1efea;
+  --color-muted: #a8a397;
+  --color-line: #2e2c28;
+  --color-accent: #cfc9bd;
+  --color-accent-soft: #2a2824;
+  --color-on-accent: #1d1c1a;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    overflow-x: clip;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    transition: background-color 0.4s, color 0.4s;
+  }
+  section[id] {
+    scroll-margin-top: 72px;
+  }
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  /* Quadrillage discret en fond de l'accueil, qui s'efface vers les bords */
+  .grid-bg {
+    background-image:
+      linear-gradient(var(--color-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 20%, transparent 75%);
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 20%, transparent 75%);
+  }
+
+  /* Lien souligné qui se trace au survol */
+  .link-line {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    transition: background-size 0.5s var(--ease-out-expo);
+  }
+  .link-line:hover {
+    background-size: 100% 1px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Fond derrière les cartes de présentation (langages, pays) */
+.info-card::backdrop {
+  background: rgb(29 28 26 / 0.45);
+  backdrop-filter: blur(3px);
+  animation: backdrop-in 0.3s ease-out;
+}
+@keyframes backdrop-in {
+  from { opacity: 0; }
+}
