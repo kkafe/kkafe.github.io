@@ -59,7 +59,7 @@ function ProjectCard({ p, n }: { p: Project; n: number }) {
 
 export default function Projects() {
   return (
-    <section id="projets" aria-labelledby="projets-title" className="border-y border-line bg-subtle">
+    <section id="projets" data-mood="projets" aria-labelledby="projets-title" className="border-y border-line bg-subtle">
       <div className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8 md:py-32">
         <SectionHeader id="projets-title" label="Projets" title="Projets réalisés" intro="Des projets réalisés dans le cadre de ma formation : des applications menées en équipe avec des clients, un jeu vidéo et une simulation." />
         <motion.div variants={stagger(0.1)} initial="hidden" whileInView="show" viewport={inView} className="mt-14 grid gap-6 md:grid-cols-2">

@@ -12,13 +12,22 @@ const read = (): ThemeColors => {
   };
 };
 
-/** Couleurs du thème courant (pour le globe en canvas), mises à jour au changement clair/sombre. */
+/** Couleurs du thème courant (pour le globe en canvas), mises à jour au changement clair/sombre et d'ambiance. */
 export default function useThemeColors() {
   const [colors, setColors] = useState<ThemeColors>(read);
   useEffect(() => {
-    const obs = new MutationObserver(() => setColors(read()));
-    obs.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-    return () => obs.disconnect();
+    // Relu tout de suite, puis à la fin du fondu de couleurs (changement de thème ou d'ambiance)
+    let t: number | undefined;
+    const obs = new MutationObserver(() => {
+      setColors(read());
+      clearTimeout(t);
+      t = window.setTimeout(() => setColors(read()), 950);
+    });
+    obs.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'data-mood'] });
+    return () => {
+      obs.disconnect();
+      clearTimeout(t);
+    };
   }, []);
   return colors;
 }

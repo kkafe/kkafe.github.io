@@ -10,8 +10,11 @@ import Education from './sections/Education';
 import Loisirs from './sections/Loisirs';
 import Contact from './sections/Contact';
 import Footer from './sections/Footer';
+import SceneTransition from './components/SceneTransition';
+import useMood from './hooks/useMood';
 
 export default function App() {
+  useMood();
   return (
     // reducedMotion="user" : animations coupées si le visiteur l'a demandé dans son système
     <MotionConfig reducedMotion="user">
@@ -22,13 +25,27 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
-        <Profile />
-        <Experience />
-        <Projects />
-        <Skills />
-        <Education />
-        <Loisirs />
-        <Contact />
+        <SceneTransition>
+          <Profile />
+        </SceneTransition>
+        <SceneTransition>
+          <Experience />
+        </SceneTransition>
+        <SceneTransition>
+          <Projects />
+        </SceneTransition>
+        <SceneTransition>
+          <Skills />
+        </SceneTransition>
+        <SceneTransition>
+          <Education />
+        </SceneTransition>
+        <SceneTransition>
+          <Loisirs />
+        </SceneTransition>
+        <SceneTransition>
+          <Contact />
+        </SceneTransition>
       </main>
       <Footer />
     </MotionConfig>

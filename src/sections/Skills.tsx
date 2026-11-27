@@ -12,7 +12,7 @@ export default function Skills() {
   const [card, setCard] = useState<InfoCardData | null>(null);
   const open = (name: LogoName) => setCard({ title: name, visual: <Logo name={name} size={40} />, ...skillCards[name] });
   return (
-    <section id="competences" aria-labelledby="skills-title">
+    <section id="competences" data-mood="competences" aria-labelledby="skills-title">
       <div className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8 md:py-32">
         <SectionHeader id="skills-title" label="Compétences" title="Compétences du BUT" intro="Les six compétences du BUT Informatique, et où je les ai mises en pratique." />
 

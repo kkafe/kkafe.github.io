@@ -15,6 +15,8 @@ import { ease, fadeUp, inView, stagger } from '../components/motion';
 
 const TABS = ['Voyages', 'Jeux vidéo', 'Musique'] as const;
 type Tab = (typeof TABS)[number];
+// Ambiance de couleurs de chaque onglet (définie dans index.css)
+const MOODS: Record<Tab, string> = { Voyages: 'voyages', 'Jeux vidéo': 'jeux', Musique: 'musique' };
 
 /* ---------- Voyages : liste des pays + globe ---------- */
 function Voyages() {
@@ -105,40 +107,44 @@ function Games() {
   );
 }
 
-/* ---------- Musique : la pochette de chaque morceau, avec un égaliseur qui s'anime au survol ---------- */
+/* ---------- Musique : cartes façon lecteur de musique, avec un bouton lecture vert qui apparaît au survol ---------- */
 function Music() {
   return (
-    <div>
-      <motion.ul variants={stagger(0.08)} initial="hidden" animate="show" className="grid gap-8 sm:grid-cols-3 sm:gap-6">
-        {hobbies.music.list.map((m) => (
-          <motion.li key={m.title} variants={fadeUp} className="group">
-            <div
-              className="relative aspect-square overflow-hidden rounded-2xl shadow-[0_22px_40px_-24px_rgba(0,0,0,0.7)] transition-transform duration-300 ease-out group-hover:-translate-y-1.5"
-              style={m.image ? undefined : { background: `radial-gradient(circle at 30% 25%, ${m.colors[1]}, ${m.colors[0]} 70%)` }}
+    <motion.ul variants={stagger(0.08)} initial="hidden" animate="show" className="grid gap-5 sm:grid-cols-3">
+      {hobbies.music.list.map((m) => (
+        <motion.li
+          key={m.title}
+          variants={fadeUp}
+          className="group rounded-xl bg-surface p-4 transition-colors duration-300 hover:bg-subtle"
+        >
+          <div
+            className="relative aspect-square overflow-hidden rounded-lg shadow-[0_12px_30px_-10px_rgba(0,0,0,0.6)]"
+            style={m.image ? undefined : { background: `radial-gradient(circle at 30% 25%, ${m.colors[1]}, ${m.colors[0]} 70%)` }}
+          >
+            {m.image && <img src={m.image} alt={`Pochette de ${m.title}, ${m.artist}`} loading="lazy" className="size-full object-cover" />}
+            {/* Bouton lecture : glisse vers le haut au survol */}
+            <span
+              aria-hidden="true"
+              className="absolute right-3 bottom-3 grid size-12 translate-y-2 place-items-center rounded-full bg-accent text-on-accent opacity-0 shadow-[0_8px_20px_rgba(0,0,0,0.45)] transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
             >
-              {m.image && (
-                <img
-                  src={m.image}
-                  alt={`Pochette de ${m.title}, ${m.artist}`}
-                  loading="lazy"
-                  className="size-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                />
-              )}
-              {/* Égaliseur dans une pastille, en bas à droite : il s'anime au survol */}
-              <span aria-hidden="true" className="absolute right-3 bottom-3 flex h-10 items-end gap-1 rounded-full bg-black/55 px-3 py-2.5 backdrop-blur-sm">
-                {[0.5, 0.9, 0.65, 1].map((h, i) => (
-                  <span key={i} className="eq-bar w-1 rounded-full bg-white" style={{ height: `${h * 100}%`, animationDelay: `${i * 0.12}s` }} />
-                ))}
-              </span>
-            </div>
-            <h3 className="mt-4 text-[1.2rem] leading-tight font-medium">{m.title}</h3>
-            <p className="text-muted">
-              {m.artist} · {m.style}
-            </p>
-          </motion.li>
-        ))}
-      </motion.ul>
-    </div>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z" />
+              </svg>
+            </span>
+          </div>
+          <h3 className="mt-4 truncate text-[1.1rem] font-semibold">{m.title}</h3>
+          <p className="mt-0.5 flex items-center gap-2 text-[0.95rem] text-muted">
+            {/* Petit égaliseur vert, animé au survol */}
+            <span aria-hidden="true" className="flex h-3 items-end gap-[2px]">
+              {[0.6, 1, 0.75].map((h, i) => (
+                <span key={i} className="eq-bar w-[3px] rounded-full bg-accent" style={{ height: `${h * 100}%`, animationDelay: `${i * 0.15}s` }} />
+              ))}
+            </span>
+            {m.artist} · {m.style}
+          </p>
+        </motion.li>
+      ))}
+    </motion.ul>
   );
 }
 
@@ -154,7 +160,7 @@ export default function Loisirs() {
   };
 
   return (
-    <section id="loisirs" aria-labelledby="loisirs-title">
+    <section id="loisirs" data-mood={MOODS[tab]} aria-labelledby="loisirs-title">
       <div className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8 md:py-32">
         <SectionHeader id="loisirs-title" label="Centres d'intérêt" title="Loisirs" intro="Ce qui m’anime en dehors du code." />
 

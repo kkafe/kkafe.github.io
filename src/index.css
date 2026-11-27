@@ -125,3 +125,175 @@
 @media (prefers-reduced-motion: reduce) {
   .group:hover .eq-bar { animation: none; transform: scaleY(1); }
 }
+
+/*
+ * Ambiances de couleur par sujet : à chaque section (et à chaque onglet des Loisirs), toute la page change
+ * de couleurs en douceur (attribut data-mood sur <html>, posé par hooks/useMood.ts).
+ * @property rend les couleurs « animables » : le fondu se fait sur toute la page à la fois.
+ */
+@property --color-paper { syntax: '<color>'; inherits: true; initial-value: #ffffff; }
+@property --color-surface { syntax: '<color>'; inherits: true; initial-value: #ffffff; }
+@property --color-subtle { syntax: '<color>'; inherits: true; initial-value: #efedea; }
+@property --color-ink { syntax: '<color>'; inherits: true; initial-value: #1d1c1a; }
+@property --color-muted { syntax: '<color>'; inherits: true; initial-value: #66635c; }
+@property --color-line { syntax: '<color>'; inherits: true; initial-value: #e2dfda; }
+@property --color-accent { syntax: '<color>'; inherits: true; initial-value: #58554c; }
+@property --color-accent-soft { syntax: '<color>'; inherits: true; initial-value: #ecebe7; }
+@property --color-on-accent { syntax: '<color>'; inherits: true; initial-value: #ffffff; }
+
+html {
+  transition:
+    --color-paper 0.9s ease, --color-surface 0.9s ease, --color-subtle 0.9s ease, --color-ink 0.9s ease,
+    --color-muted 0.9s ease, --color-line 0.9s ease, --color-accent 0.9s ease, --color-accent-soft 0.9s ease,
+    --color-on-accent 0.9s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { transition: none; }
+}
+
+/* Profil : turquoise du lagon de Mayotte */
+html[data-mood='profil'] {
+  --color-paper: #f1f9f8;
+  --color-surface: #ffffff;
+  --color-subtle: #e1f2f0;
+  --color-ink: #0f2b29;
+  --color-muted: #4b6c69;
+  --color-line: #cfe7e4;
+  --color-accent: #0e8a7f;
+  --color-accent-soft: #d8efec;
+  --color-on-accent: #ffffff;
+}
+html.dark[data-mood='profil'] {
+  --color-paper: #0b1c1b;
+  --color-surface: #112624;
+  --color-subtle: #0e2220;
+  --color-ink: #e8f6f4;
+  --color-muted: #94b9b5;
+  --color-line: #1d3634;
+  --color-accent: #3fc9bb;
+  --color-accent-soft: #13302d;
+  --color-on-accent: #06201d;
+}
+
+/* Expérience : bleu marine et or, l'univers professionnel et institutionnel */
+html[data-mood='experience'] {
+  --color-paper: #0d1626;
+  --color-surface: #142036;
+  --color-subtle: #111c30;
+  --color-ink: #eef2fa;
+  --color-muted: #9aa8c2;
+  --color-line: #24324c;
+  --color-accent: #e2b54b;
+  --color-accent-soft: #1c2940;
+  --color-on-accent: #121a2c;
+}
+
+/* Projets : thème d'éditeur de code, ardoise et cyan */
+html[data-mood='projets'] {
+  --color-paper: #0f1218;
+  --color-surface: #171c25;
+  --color-subtle: #141922;
+  --color-ink: #e6edf3;
+  --color-muted: #8b98a8;
+  --color-line: #252c38;
+  --color-accent: #38d3ee;
+  --color-accent-soft: #16242e;
+  --color-on-accent: #06151b;
+}
+
+/* Compétences : indigo, couleur de la tech et de la formation BUT */
+html[data-mood='competences'] {
+  --color-paper: #f6f5fe;
+  --color-surface: #ffffff;
+  --color-subtle: #ebe9fc;
+  --color-ink: #1b1838;
+  --color-muted: #5d5a85;
+  --color-line: #dddaf6;
+  --color-accent: #4f46e5;
+  --color-accent-soft: #e4e2fb;
+  --color-on-accent: #ffffff;
+}
+html.dark[data-mood='competences'] {
+  --color-paper: #12112a;
+  --color-surface: #1a1838;
+  --color-subtle: #161532;
+  --color-ink: #eceaff;
+  --color-muted: #a6a3d2;
+  --color-line: #2a2850;
+  --color-accent: #8b85ff;
+  --color-accent-soft: #221f45;
+  --color-on-accent: #0d0b24;
+}
+
+/* Formation : rose brique de Toulouse, la ville rose où j'étudie */
+html[data-mood='formation'] {
+  --color-paper: #fcf4f1;
+  --color-surface: #ffffff;
+  --color-subtle: #f7e5de;
+  --color-ink: #2e1611;
+  --color-muted: #7a554b;
+  --color-line: #efd9d0;
+  --color-accent: #b4523a;
+  --color-accent-soft: #f6e1d9;
+  --color-on-accent: #ffffff;
+}
+html.dark[data-mood='formation'] {
+  --color-paper: #1e1210;
+  --color-surface: #281815;
+  --color-subtle: #231512;
+  --color-ink: #f8ebe7;
+  --color-muted: #c4a49b;
+  --color-line: #3a2622;
+  --color-accent: #e98b72;
+  --color-accent-soft: #331e1a;
+  --color-on-accent: #1e0c08;
+}
+
+/* Voyages : bleu océan (clair) */
+html[data-mood='voyages'] {
+  --color-paper: #f1f7fb;
+  --color-surface: #ffffff;
+  --color-subtle: #e1eef6;
+  --color-ink: #10283a;
+  --color-muted: #4f6b7e;
+  --color-line: #d3e3ee;
+  --color-accent: #1f6fa8;
+  --color-accent-soft: #dbeaf5;
+  --color-on-accent: #ffffff;
+}
+/* Voyages en mode sombre : bleu nuit */
+html.dark[data-mood='voyages'] {
+  --color-paper: #0c1824;
+  --color-surface: #12212f;
+  --color-subtle: #0f1d2a;
+  --color-ink: #eaf3fa;
+  --color-muted: #9bb3c6;
+  --color-line: #1e3345;
+  --color-accent: #5cb2ec;
+  --color-accent-soft: #15293a;
+  --color-on-accent: #08131d;
+}
+/* Jeux vidéo : nuit violette et néon */
+html[data-mood='jeux'] {
+  --color-paper: #0e0a1c;
+  --color-surface: #18122d;
+  --color-subtle: #140f26;
+  --color-ink: #f3f0ff;
+  --color-muted: #a99fcd;
+  --color-line: #2a2147;
+  --color-accent: #9b6bff;
+  --color-accent-soft: #221a3d;
+  --color-on-accent: #ffffff;
+}
+/* Musique : noir et vert, façon lecteur de musique */
+html[data-mood='musique'] {
+  --color-paper: #121212;
+  --color-surface: #181818;
+  --color-subtle: #1a1a1a;
+  --color-ink: #ffffff;
+  --color-muted: #b3b3b3;
+  --color-line: #2a2a2a;
+  --color-accent: #1ed760;
+  --color-accent-soft: #1b2b20;
+  --color-on-accent: #000000;
+}

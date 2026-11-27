@@ -5,7 +5,7 @@ import { fadeUp, inView, stagger } from '../components/motion';
 
 export default function Profile() {
   return (
-    <section id="profil" aria-labelledby="profil-title" className="border-t border-line bg-subtle">
+    <section id="profil" data-mood="profil" aria-labelledby="profil-title" className="border-t border-line bg-subtle">
       <div className="mx-auto grid w-full max-w-6xl gap-12 px-5 py-24 sm:px-8 md:grid-cols-[1fr_1.3fr] md:gap-16 md:py-32">
         <SectionHeader id="profil-title" label="Profil" title="Partir du besoin, livrer une solution" />
         <motion.div variants={stagger(0.12)} initial="hidden" whileInView="show" viewport={inView}>
