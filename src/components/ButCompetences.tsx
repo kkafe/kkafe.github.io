@@ -1,80 +1,69 @@
 /*
- * Les 6 compétences du BUT Informatique.
- * À gauche, une pile de touches inclinées en 3D (une par compétence) ; à droite, la compétence choisie.
+ * Les 6 compétences du BUT Informatique, en accordéon.
+ * Ordinateur : six colonnes côte à côte, la colonne choisie s'élargit pour présenter la compétence.
+ * Téléphone : six lignes empilées, la ligne choisie s'ouvre.
  */
-import { AnimatePresence, motion } from 'motion/react';
+import { motion } from 'motion/react';
 import { useState } from 'react';
 import { butSkills } from '../data/content';
 import { ease } from './motion';
 
 export default function ButCompetences() {
   const [active, setActive] = useState(0);
-  const skill = butSkills[active];
-
-  // Flèches du clavier pour passer d'une compétence à l'autre (comportement standard des onglets)
-  const onKey = (e: React.KeyboardEvent) => {
-    const step = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0;
-    if (!step) return;
-    e.preventDefault();
-    const next = (active + step + butSkills.length) % butSkills.length;
-    setActive(next);
-    document.getElementById(`but-tab-${next}`)?.focus();
-  };
 
   return (
-    <div className="grid items-center gap-12 md:grid-cols-[minmax(0,26rem)_1fr] md:gap-16">
-      {/* Pile de touches inclinée */}
-      <div className="[perspective:1100px]">
-        <div
-          role="tablist"
-          aria-label="Compétences du BUT"
-          aria-orientation="vertical"
-          onKeyDown={onKey}
-          className="mx-auto grid max-w-[18rem] gap-3 sm:max-w-[22rem] rounded-[1.6rem] border border-line bg-subtle p-4 shadow-[0_40px_60px_-30px_rgba(29,28,26,0.35)] [transform:rotateX(18deg)_rotateZ(-7deg)] dark:bg-surface"
-        >
-          {butSkills.map((s, i) => {
-            const on = i === active;
-            return (
-              <button
-                key={s.code}
-                id={`but-tab-${i}`}
-                role="tab"
-                type="button"
-                aria-selected={on}
-                aria-controls="but-panel"
-                tabIndex={on ? 0 : -1}
-                onClick={() => setActive(i)}
-                className={`cursor-pointer rounded-xl px-5 py-3 text-[1.05rem] font-medium tracking-[0.02em] transition-all duration-200 ${
-                  on
-                    ? 'translate-y-[3px] bg-accent text-on-accent shadow-[0_3px_0_0_rgba(0,0,0,0.35)]'
-                    : 'bg-surface text-ink shadow-[0_6px_0_0_var(--color-line)] hover:-translate-y-0.5 hover:shadow-[0_8px_0_0_var(--color-line)] dark:bg-paper'
-                }`}
-              >
-                {s.verb}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Compétence choisie */}
-      <div id="but-panel" role="tabpanel" aria-labelledby={`but-tab-${active}`} aria-live="polite" className="min-h-[17rem]">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={skill.code}
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.35, ease }}
+    <div className="flex flex-col gap-3 md:h-[25rem] md:flex-row">
+      {butSkills.map((s, i) => {
+        const on = i === active;
+        const num = s.code.split(' ')[0]; // « C1 »
+        return (
+          <div
+            key={s.code}
+            style={{ flexGrow: on ? 7 : 1 }}
+            className={`relative min-w-0 overflow-hidden rounded-2xl border transition-[flex-grow,background-color,border-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:basis-0 ${
+              on ? 'border-accent bg-accent text-on-accent' : 'border-line bg-surface hover:bg-accent-soft'
+            }`}
           >
-            <p className="text-[0.85rem] font-medium tracking-[0.1em] text-accent">{skill.code}</p>
-            <h3 className="mt-2 text-[clamp(2.4rem,1.8rem+2.4vw,3.6rem)] leading-none font-semibold tracking-[-0.02em]">{skill.verb}</h3>
-            <p className="mt-2 text-[0.95rem] text-muted">{skill.official}</p>
-            <p className="mt-6 max-w-md text-[1.3rem] leading-snug">{skill.text}</p>
-            <p className="mt-6 max-w-md border-l-2 border-accent pl-4 text-[1rem] text-muted">{skill.example}</p>
-          </motion.div>
-        </AnimatePresence>
-      </div>
+            {/* En-tête cliquable */}
+            <button
+              type="button"
+              id={`but-btn-${i}`}
+              aria-expanded={on}
+              aria-controls={`but-panel-${i}`}
+              onClick={() => setActive(i)}
+              className={`flex w-full cursor-pointer items-center gap-4 px-5 py-4 text-left md:h-full md:flex-col md:items-start md:justify-between md:py-6 ${
+                on ? 'md:pointer-events-none md:absolute md:inset-0 md:opacity-0' : ''
+              }`}
+            >
+              <span className={`text-[0.85rem] font-medium tracking-[0.08em] ${on ? '' : 'text-accent'}`}>{num}</span>
+              <span className="text-[1.15rem] font-medium md:rotate-180 md:[writing-mode:vertical-rl]">{s.verb}</span>
+            </button>
+
+            {/* Contenu de la compétence ouverte */}
+            {on && (
+              <motion.div
+                id={`but-panel-${i}`}
+                role="region"
+                aria-labelledby={`but-btn-${i}`}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, delay: 0.15, ease }}
+                className="flex flex-col px-5 pb-6 md:h-full md:min-w-[24rem] md:justify-between md:px-8 md:py-7"
+              >
+                <div>
+                  <p className="hidden text-[0.85rem] font-medium tracking-[0.1em] opacity-80 md:block">{s.code}</p>
+                  <h3 className="hidden text-[clamp(2.4rem,1.8rem+2vw,3.4rem)] leading-none font-semibold tracking-[-0.02em] md:mt-3 md:block">
+                    {s.verb}
+                  </h3>
+                  <p className="text-[0.9rem] opacity-75 md:mt-2">{s.official}</p>
+                  <p className="mt-4 max-w-md text-[1.2rem] leading-snug md:mt-6 md:text-[1.35rem]">{s.text}</p>
+                </div>
+                <p className="mt-5 max-w-md border-l-2 border-current/40 pl-4 text-[0.98rem] opacity-85">{s.example}</p>
+              </motion.div>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 }
