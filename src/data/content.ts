@@ -215,14 +215,28 @@ export const butSkills: ButSkill[] = [
   },
 ];
 
-// Loisirs : jeux vidéo et musique. « favorites » : ajoutez vos jeux, artistes ou styles préférés (ils s'affichent en étiquettes).
+// Loisirs : jeux vidéo et musique préférés.
+// « colors » : les deux couleurs du dégradé de chaque affiche (visuels originaux, sans image protégée).
+export type Game = { title: string; genre: string; studio: string; colors: [string, string] };
+export type Song = { title: string; artist: string; style: string; colors: [string, string] };
+
 export const hobbies = {
   games: {
-    text: 'Passionné de jeux vidéo, j’aime autant y jouer que comprendre comment ils sont conçus. Cette curiosité m’a poussé à développer mon propre jeu : un Bomberman réalisé avec le moteur Godot.',
-    favorites: [] as string[],
+    text: 'Passionné de jeux vidéo, j’aime autant y jouer que comprendre comment ils sont conçus. Cette curiosité m’a poussé à développer mon propre jeu : un Bomberman réalisé avec Godot.',
+    list: [
+      { title: 'Fortnite', genre: 'Battle royale', studio: 'Epic Games', colors: ['#7b3fe4', '#29b6f6'] },
+      { title: 'Rocket League', genre: 'Football en voiture', studio: 'Psyonix', colors: ['#1565c0', '#ff7a18'] },
+      { title: 'GTA V', genre: 'Monde ouvert', studio: 'Rockstar Games', colors: ['#2e7d32', '#f9a825'] },
+      { title: 'Call of Duty', genre: 'Jeu de tir', studio: 'Activision', colors: ['#263238', '#8d6e63'] },
+      { title: 'FIFA', genre: 'Football', studio: 'EA Sports', colors: ['#00796b', '#7cb342'] },
+    ] satisfies Game[],
   },
   music: {
-    text: 'La musique m’accompagne au quotidien, pour me détendre comme pour me concentrer quand je code.',
-    favorites: [] as string[],
+    text: 'Surtout du rap, français, belge et américain : les morceaux que j’écoute en boucle.',
+    list: [
+      { title: 'Life', artist: 'Hamza', style: 'Rap belge', colors: ['#3949ab', '#ec407a'] },
+      { title: 'Jamal', artist: 'Werenoi', style: 'Rap français', colors: ['#bf360c', '#ffb300'] },
+      { title: 'Before I Close My Eyes', artist: 'XXXTentacion', style: 'Rap américain', colors: ['#212121', '#78909c'] },
+    ] satisfies Song[],
   },
 };

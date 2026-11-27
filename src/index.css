@@ -108,3 +108,20 @@
 @keyframes backdrop-in {
   from { opacity: 0; }
 }
+
+/* Égaliseur des morceaux préférés (section Loisirs) : il s'anime au survol de la pochette */
+.eq-bar {
+  transform-origin: bottom;
+  transform: scaleY(0.45);
+  transition: transform 0.3s;
+}
+.group:hover .eq-bar {
+  animation: eq 0.9s ease-in-out infinite alternate;
+}
+@keyframes eq {
+  from { transform: scaleY(0.25); }
+  to { transform: scaleY(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .group:hover .eq-bar { animation: none; transform: scaleY(1); }
+}

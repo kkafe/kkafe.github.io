@@ -16,19 +16,6 @@ import { ease, fadeUp, inView, stagger } from '../components/motion';
 const TABS = ['Voyages', 'Jeux vidéo', 'Musique'] as const;
 type Tab = (typeof TABS)[number];
 
-function Favorites({ items }: { items: string[] }) {
-  if (!items.length) return null;
-  return (
-    <ul className="mt-6 flex flex-wrap gap-2">
-      {items.map((f) => (
-        <li key={f} className="rounded-lg border border-line bg-surface px-3 py-1.5 text-[0.95rem]">
-          {f}
-        </li>
-      ))}
-    </ul>
-  );
-}
-
 /* ---------- Voyages : liste des pays + globe ---------- */
 function Voyages() {
   const [focus, setFocus] = useState<Trip | null>(null);
@@ -79,62 +66,75 @@ function Voyages() {
   );
 }
 
-/* ---------- Jeux vidéo : manette dessinée qui flotte doucement ---------- */
+/* ---------- Jeux vidéo : une affiche originale par jeu (dégradé + titre), qui se soulève au survol ---------- */
 function Games() {
   return (
-    <div className="grid items-center gap-12 md:grid-cols-2 md:gap-16">
-      <div>
-        <p className="max-w-md text-[1.2rem] leading-relaxed">{hobbies.games.text}</p>
-        <Favorites items={hobbies.games.favorites} />
-        <a href="#projets" className="link-line mt-8 inline-block pb-0.5 font-medium text-accent">
-          Voir le projet Bomberman
-        </a>
-      </div>
-      <div className="grid aspect-[4/3] place-items-center rounded-3xl border border-line bg-subtle">
-        <motion.svg
-          viewBox="0 0 200 120"
-          className="w-3/5 text-accent"
-          aria-hidden="true"
-          animate={{ y: [0, -8, 0], rotate: [-2, 2, -2] }}
-          transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-        >
-          <path
-            d="M55 20h90c22 0 32 14 38 38l8 34c4 18-12 28-26 16l-20-18H55L35 108c-14 12-30 2-26-16l8-34c6-24 16-38 38-38Z"
-            fill="currentColor"
-          />
-          {/* Croix directionnelle */}
-          <path d="M52 48h10v10h10v10H62v10H52V68H42V58h10Z" className="fill-paper" />
-          {/* Boutons */}
-          <circle cx="142" cy="52" r="7" className="fill-paper" />
-          <circle cx="158" cy="66" r="7" className="fill-paper" />
-          <circle cx="126" cy="66" r="7" className="fill-paper" />
-          <circle cx="142" cy="80" r="7" className="fill-paper" />
-        </motion.svg>
-      </div>
+    <div>
+      <p className="max-w-2xl text-[1.15rem] leading-relaxed text-muted">{hobbies.games.text}</p>
+      <motion.ul variants={stagger(0.07)} initial="hidden" animate="show" className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+        {hobbies.games.list.map((g, i) => (
+          <motion.li key={g.title} variants={fadeUp}>
+            <article
+              className="group relative flex aspect-[3/4] flex-col justify-between overflow-hidden rounded-2xl p-5 text-white shadow-[0_18px_40px_-22px_rgba(0,0,0,0.6)] transition-transform duration-300 ease-out hover:-translate-y-1.5 hover:rotate-[-1deg]"
+              style={{ background: `linear-gradient(150deg, ${g.colors[0]}, ${g.colors[1]})` }}
+            >
+              {/* Motif de lignes, pour donner du relief à l'affiche */}
+              <span
+                aria-hidden="true"
+                className="absolute inset-0 opacity-20 transition-opacity duration-300 group-hover:opacity-30"
+                style={{ backgroundImage: 'repeating-linear-gradient(120deg, rgba(255,255,255,.35) 0 1px, transparent 1px 14px)' }}
+              />
+              <span aria-hidden="true" className="relative text-[0.8rem] font-medium tracking-[0.12em] opacity-80">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <div className="relative">
+                <h3 className="text-[clamp(1.3rem,1rem+1vw,1.75rem)] leading-[1.05] font-semibold tracking-[-0.01em]">{g.title}</h3>
+                <p className="mt-2 text-[0.88rem] opacity-90">{g.genre}</p>
+                <p className="text-[0.8rem] opacity-70">{g.studio}</p>
+              </div>
+            </article>
+          </motion.li>
+        ))}
+      </motion.ul>
     </div>
   );
 }
 
-/* ---------- Musique : égaliseur animé ---------- */
-const BARS = [0.45, 0.8, 0.6, 1, 0.7, 0.9, 0.5, 0.75, 0.55, 0.85, 0.4, 0.65];
+/* ---------- Musique : une pochette originale par morceau, avec un égaliseur qui s'anime au survol ---------- */
 function Music() {
   return (
-    <div className="grid items-center gap-12 md:grid-cols-2 md:gap-16">
-      <div>
-        <p className="max-w-md text-[1.2rem] leading-relaxed">{hobbies.music.text}</p>
-        <Favorites items={hobbies.music.favorites} />
-      </div>
-      <div className="flex aspect-[4/3] items-end justify-center gap-2 rounded-3xl border border-line bg-subtle px-10 pb-14 pt-16" aria-hidden="true">
-        {BARS.map((h, i) => (
-          <motion.span
-            key={i}
-            className="w-full max-w-4 origin-bottom rounded-full bg-accent"
-            style={{ height: '100%' }}
-            animate={{ scaleY: [h * 0.35, h, h * 0.55, h * 0.9, h * 0.35] }}
-            transition={{ duration: 1.6 + (i % 4) * 0.25, repeat: Infinity, ease: 'easeInOut', delay: i * 0.08 }}
-          />
+    <div>
+      <p className="max-w-2xl text-[1.15rem] leading-relaxed text-muted">{hobbies.music.text}</p>
+      <motion.ul variants={stagger(0.08)} initial="hidden" animate="show" className="mt-10 grid gap-6 sm:grid-cols-3">
+        {hobbies.music.list.map((m) => (
+          <motion.li key={m.title} variants={fadeUp} className="group">
+            <div
+              className="relative grid aspect-square place-items-center overflow-hidden rounded-2xl text-white shadow-[0_18px_40px_-22px_rgba(0,0,0,0.6)]"
+              style={{ background: `radial-gradient(circle at 30% 25%, ${m.colors[1]}, ${m.colors[0]} 70%)` }}
+              aria-hidden="true"
+            >
+              {/* Ondes concentriques */}
+              <span className="absolute size-[70%] rounded-full border border-white/25" />
+              <span className="absolute size-[48%] rounded-full border border-white/25" />
+              <span className="absolute size-[26%] rounded-full border border-white/30" />
+              {/* Égaliseur : immobile, il s'anime au survol */}
+              <span className="relative flex h-14 items-end gap-1.5">
+                {[0.5, 0.9, 0.65, 1, 0.75].map((h, i) => (
+                  <span
+                    key={i}
+                    className="eq-bar w-2 rounded-full bg-white"
+                    style={{ height: `${h * 100}%`, animationDelay: `${i * 0.12}s` }}
+                  />
+                ))}
+              </span>
+            </div>
+            <h3 className="mt-4 text-[1.25rem] font-medium leading-tight">{m.title}</h3>
+            <p className="text-muted">
+              {m.artist} · {m.style}
+            </p>
+          </motion.li>
         ))}
-      </div>
+      </motion.ul>
     </div>
   );
 }
