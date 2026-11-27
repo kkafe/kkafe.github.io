@@ -130,10 +130,10 @@ export const education: Step[] = [
 /* ---------- Compétences ---------- */
 // Les outils avec un logo (voir components/Logo.tsx pour la liste des logos disponibles)
 export const toolGroups: { title: string; items: LogoName[] }[] = [
-  { title: 'Langages', items: ['Java', 'Python', 'C++'] },
-  { title: 'Développement web', items: ['HTML', 'CSS', 'PHP', 'JavaScript'] },
+  { title: 'Langages', items: ['Java', 'Python', 'C++', 'TypeScript'] },
+  { title: 'Développement web', items: ['HTML', 'CSS', 'JavaScript', 'PHP', 'React', 'Vue'] },
   { title: 'Bases de données', items: ['SQL', 'PL/SQL', 'Cypher'] },
-  { title: 'Jeu vidéo', items: ['Godot'] },
+  { title: 'Outils', items: ['Git', 'Oracle', 'MySQL', 'Neo4j', 'Godot', 'Vibe coding'] },
 ];
 
 // Les compétences sans logo

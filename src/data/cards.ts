@@ -122,6 +122,86 @@ export const skillCards: Record<LogoName, Card> = {
     ],
     usage: 'Modélisation et interrogation de données en graphe en BUT Informatique.',
   },
+  TypeScript: {
+    kind: 'Langage de programmation',
+    summary: 'JavaScript avec des types : les erreurs sont repérées avant même de lancer le programme.',
+    facts: [
+      { label: 'Créé en', value: '2012' },
+      { label: 'Éditeur', value: 'Microsoft' },
+      { label: 'Base de', value: 'JavaScript' },
+    ],
+    usage: 'Le code de ce portfolio est écrit en TypeScript.',
+  },
+  React: {
+    kind: 'Bibliothèque web',
+    summary: 'Bibliothèque JavaScript pour construire des interfaces à partir de composants réutilisables.',
+    facts: [
+      { label: 'Créé en', value: '2013' },
+      { label: 'Éditeur', value: 'Meta' },
+      { label: 'Rôle', value: 'Interfaces web' },
+    ],
+    usage: 'Ce portfolio est développé avec React.',
+  },
+  Vue: {
+    kind: 'Framework web',
+    summary: 'Framework JavaScript progressif pour créer des interfaces web réactives.',
+    facts: [
+      { label: 'Créé en', value: '2014' },
+      { label: 'Auteur', value: 'Evan You' },
+      { label: 'Rôle', value: 'Interfaces web' },
+    ],
+    usage: 'Création d’interfaces web dynamiques.',
+  },
+  Git: {
+    kind: 'Gestion de versions',
+    summary: 'Outil qui garde l’historique de chaque modification du code et permet de travailler à plusieurs.',
+    facts: [
+      { label: 'Créé en', value: '2005' },
+      { label: 'Auteur', value: 'Linus Torvalds' },
+      { label: 'Plateforme', value: 'GitHub' },
+    ],
+    usage: 'Suivi de mes projets, dont ce portfolio publié sur GitHub.',
+  },
+  Oracle: {
+    kind: 'Base de données',
+    summary: 'Système de base de données relationnelle très utilisé en entreprise.',
+    facts: [
+      { label: 'Créé en', value: '1979' },
+      { label: 'Éditeur', value: 'Oracle' },
+      { label: 'Langage', value: 'SQL, PL/SQL' },
+    ],
+    usage: 'Bases de données en BUT Informatique, avec SQL Developer.',
+  },
+  MySQL: {
+    kind: 'Base de données',
+    summary: 'Base de données relationnelle open source, très répandue sur le web.',
+    facts: [
+      { label: 'Créé en', value: '1995' },
+      { label: 'Licence', value: 'Open source' },
+      { label: 'Langage', value: 'SQL' },
+    ],
+    usage: 'Base de données du portail RH réalisé en stage.',
+  },
+  Neo4j: {
+    kind: 'Base de données',
+    summary: 'Base de données orientée graphe : les données sont des nœuds reliés par des relations.',
+    facts: [
+      { label: 'Créé en', value: '2007' },
+      { label: 'Modèle', value: 'Graphe' },
+      { label: 'Langage', value: 'Cypher' },
+    ],
+    usage: 'Bases de données en graphe en BUT Informatique.',
+  },
+  'Vibe coding': {
+    kind: 'Développement avec l’IA',
+    summary: 'Développer en décrivant à une IA ce que l’on veut construire, puis relire, tester et corriger le code qu’elle propose.',
+    facts: [
+      { label: 'Apparu en', value: '2025' },
+      { label: 'Outils', value: 'Assistants IA' },
+      { label: 'Atout', value: 'Prototyper vite' },
+    ],
+    usage: 'Prototypage rapide, en gardant la main sur la relecture et les tests.',
+  },
   Godot: {
     kind: 'Moteur de jeu',
     summary: 'Moteur de jeu libre et open source pour créer des jeux 2D et 3D, avec son propre langage de script, le GDScript.',
