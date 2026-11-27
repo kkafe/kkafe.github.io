@@ -6,9 +6,9 @@
 import { m } from 'motion/react';
 import { useState } from 'react';
 import { butSkills } from '../data/content';
-import { ease } from './motion';
+import { ease } from '../animations/variants';
 
-export default function ButCompetences() {
+export default function ButSkillsAccordion() {
   const [active, setActive] = useState(0);
 
   return (

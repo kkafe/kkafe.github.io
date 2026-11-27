@@ -5,8 +5,8 @@
 import { m } from 'motion/react';
 import { useEffect, useRef, type ReactNode } from 'react';
 import { person } from '../data/content';
-import { CloseIcon } from './Icons';
-import { ease } from './motion';
+import { CloseIcon } from './UiIcons';
+import { ease } from '../animations/variants';
 
 const link = 'underline underline-offset-2 hover:text-accent';
 
@@ -19,7 +19,7 @@ function Part({ title, children }: { title: string; children: ReactNode }) {
   );
 }
 
-export default function LegalNotice({ open, onClose }: { open: boolean; onClose: () => void }) {
+export default function LegalNoticeDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
   const ref = useRef<HTMLDialogElement>(null);
   const name = `${person.firstName} ${person.lastName}`;
 

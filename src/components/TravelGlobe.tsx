@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import landDots from '../data/land-dots.json';
+import landDots from '../data/globe-land-dots.json';
 import type { Trip } from '../data/content';
 import useThemeColors, { rgba } from '../hooks/useThemeColors';
 
@@ -13,7 +13,7 @@ type Props = { trips: Trip[]; homes: Trip[]; focus: Trip | null };
  * Globe en points qui tourne sur lui-même (projection orthographique dessinée en canvas).
  * Glisser pour le faire tourner. Quand une destination est choisie, il pivote pour la centrer.
  */
-export default function Globe({ trips, homes, focus }: Props) {
+export default function TravelGlobe({ trips, homes, focus }: Props) {
   const ref = useRef<HTMLCanvasElement>(null);
   const colors = useThemeColors(ref);
   const state = useRef({ lon: 20, lat: 10, target: null as null | { lon: number; lat: number }, drag: null as null | { x: number; y: number; lon: number; lat: number }, idle: 0 });

@@ -1,10 +1,10 @@
 import { AnimatePresence, m } from 'motion/react';
 import { useState } from 'react';
 import { contact, person } from '../data/content';
-import { CheckIcon, CopyIcon, PinIcon } from '../components/Icons';
+import { CheckIcon, CopyIcon, PinIcon } from '../components/UiIcons';
 import GithubOriginal from 'devicons-react/icons/GithubOriginal';
-import { LinkedinLogo, MailLogo } from '../components/SocialIcons';
-import { ease, fadeUp, inView, stagger } from '../components/motion';
+import { LinkedinLogo, MailLogo } from '../components/SocialLogos';
+import { ease, fadeUp, inView, stagger } from '../animations/variants';
 
 export default function Contact() {
   const [copied, setCopied] = useState(false);

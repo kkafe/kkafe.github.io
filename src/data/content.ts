@@ -3,7 +3,7 @@
  * Modifiez ce fichier pour changer une phrase, ajouter un projet, une compétence ou un voyage :
  * le site se met à jour tout seul (npm run dev).
  */
-import type { LogoName } from '../components/Logo';
+import type { TechLogoName } from '../components/TechLogo';
 
 export const person = {
   firstName: 'Kiliane',
@@ -47,7 +47,7 @@ export const about = {
 };
 
 /* ---------- Expérience professionnelle ---------- */
-export type Job = { role: string; company: string; type: string; points: string[]; tech?: LogoName[] };
+export type Job = { role: string; company: string; type: string; points: string[]; tech?: TechLogoName[] };
 
 export const experiences: Job[] = [
   {
@@ -71,7 +71,7 @@ export const experiences: Job[] = [
 ];
 
 /* ---------- Projets ----------
- * tech : logos affichés sur la carte (noms de la liste LogoName dans components/Logo.tsx)
+ * tech : logos affichés sur la carte (noms de la liste TechLogoName dans components/TechLogo.tsx)
  * link : facultatif, par exemple le dépôt GitHub du projet
  */
 export type Project = {
@@ -80,7 +80,7 @@ export type Project = {
   context?: string;
   description: string;
   highlights?: string[];
-  tech?: LogoName[];
+  tech?: TechLogoName[];
   link?: { label: string; href: string };
 };
 
@@ -129,8 +129,8 @@ export const education: Step[] = [
 ];
 
 /* ---------- Compétences ---------- */
-// Les outils avec un logo (voir components/Logo.tsx pour la liste des logos disponibles)
-export const toolGroups: { title: string; items: LogoName[] }[] = [
+// Les outils avec un logo (voir components/TechLogo.tsx pour la liste des logos disponibles)
+export const toolGroups: { title: string; items: TechLogoName[] }[] = [
   { title: 'Langages', items: ['Java', 'Python', 'C++', 'TypeScript'] },
   { title: 'Développement web', items: ['HTML', 'CSS', 'JavaScript', 'PHP', 'React', 'Vue'] },
   { title: 'Bases de données', items: ['SQL', 'PL/SQL', 'Cypher'] },
@@ -216,15 +216,15 @@ export const butSkills: ButSkill[] = [
 ];
 
 // Loisirs : jeux vidéo et musique préférés.
-// « image » : l'affiche ou la pochette (dossier assets/loisirs). Sans image, un dégradé avec les deux « colors » la remplace.
-import codImg from '../assets/loisirs/call-of-duty.webp';
-import gtaImg from '../assets/loisirs/gta-6.webp';
-import rocketImg from '../assets/loisirs/rocket-league.webp';
-import fortniteImg from '../assets/loisirs/fortnite.webp';
-import xxxImg from '../assets/loisirs/xxxtentacion.webp';
-import hamzaImg from '../assets/loisirs/hamza.webp';
-import werenoiImg from '../assets/loisirs/werenoi.webp';
-import fcImg from '../assets/loisirs/fc-27.webp';
+// « image » : l'affiche ou la pochette (dossiers assets/images/games et assets/images/music). Sans image, un dégradé avec les deux « colors » la remplace.
+import codImg from '../assets/images/games/call-of-duty.webp';
+import gtaImg from '../assets/images/games/gta-6.webp';
+import rocketImg from '../assets/images/games/rocket-league.webp';
+import fortniteImg from '../assets/images/games/fortnite.webp';
+import xxxImg from '../assets/images/music/before-i-close-my-eyes-xxxtentacion.webp';
+import hamzaImg from '../assets/images/music/life-hamza.webp';
+import werenoiImg from '../assets/images/music/jamal-werenoi.webp';
+import fcImg from '../assets/images/games/fc-27.webp';
 
 export type Game = { title: string; genre: string; studio: string; image?: string; colors: [string, string] };
 export type Song = { title: string; artist: string; style: string; image?: string; colors: [string, string] };

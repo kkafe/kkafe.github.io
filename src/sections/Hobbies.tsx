@@ -6,14 +6,14 @@
 import { AnimatePresence, m } from 'motion/react';
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { hobbies, homes, travels, type Trip } from '../data/content';
-import { countryCards } from '../data/cards';
-import InfoCard, { type InfoCardData } from '../components/InfoCard';
-import { PinIcon } from '../components/Icons';
+import { countryCards } from '../data/infoCards';
+import InfoCardDialog, { type InfoCardData } from '../components/InfoCardDialog';
+import { PinIcon } from '../components/UiIcons';
 import SectionHeader from '../components/SectionHeader';
-import { ease, fadeUp, inView, stagger } from '../components/motion';
+import { ease, fadeUp, inView, stagger } from '../animations/variants';
 
 // Le globe (et ses milliers de points) n'est chargé qu'à l'approche de la section : la page s'ouvre plus vite
-const Globe = lazy(() => import('../components/Globe'));
+const TravelGlobe = lazy(() => import('../components/TravelGlobe'));
 function LazyGlobe(props: { trips: Trip[]; homes: Trip[]; focus: Trip | null }) {
   const ref = useRef<HTMLDivElement>(null);
   const [near, setNear] = useState(false);
@@ -28,7 +28,7 @@ function LazyGlobe(props: { trips: Trip[]; homes: Trip[]; focus: Trip | null }) 
     <div ref={ref} className="aspect-square w-full">
       {near && (
         <Suspense fallback={null}>
-          <Globe {...props} />
+          <TravelGlobe {...props} />
         </Suspense>
       )}
     </div>
@@ -85,7 +85,7 @@ function Voyages() {
       <figure className="mx-auto w-full max-w-[480px]">
         <LazyGlobe trips={travels} homes={homes} focus={focus} />
       </figure>
-      <InfoCard data={card} onClose={() => setCard(null)} />
+      <InfoCardDialog data={card} onClose={() => setCard(null)} />
     </div>
   );
 }
@@ -171,7 +171,7 @@ function Music() {
   );
 }
 
-export default function Loisirs() {
+export default function Hobbies() {
   const [tab, setTab] = useState<Tab>('Voyages');
 
   const onKey = (e: React.KeyboardEvent) => {

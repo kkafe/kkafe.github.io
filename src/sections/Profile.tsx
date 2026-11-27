@@ -1,7 +1,7 @@
 import { m } from 'motion/react';
 import { about } from '../data/content';
 import SectionHeader from '../components/SectionHeader';
-import { fadeUp, inView, stagger } from '../components/motion';
+import { fadeUp, inView, stagger } from '../animations/variants';
 
 export default function Profile() {
   return (

@@ -2,10 +2,10 @@ import { AnimatePresence, m, useMotionValueEvent, useScroll } from 'motion/react
 import { useEffect, useState } from 'react';
 import { nav, person } from '../data/content';
 import useActiveSection from '../hooks/useActiveSection';
-import { CloseIcon, MenuIcon } from './Icons';
+import { CloseIcon, MenuIcon } from './UiIcons';
 import Signature from './Signature';
 import ThemeToggle from './ThemeToggle';
-import { ease } from './motion';
+import { ease } from '../animations/variants';
 
 const ids = nav.map((n) => n.id);
 

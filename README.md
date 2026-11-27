@@ -4,7 +4,7 @@ Portfolio personnel d'un étudiant en 3e année de BUT Informatique à l'IUT de 
 
 **Voir le site : [kkafe.github.io](https://kkafe.github.io)**
 
-![Page d'accueil du portfolio](docs/apercu.jpg)
+![Page d'accueil du portfolio](docs/apercu-accueil.jpg)
 
 ## Fonctionnalités
 
@@ -40,17 +40,47 @@ Portfolio personnel d'un étudiant en 3e année de BUT Informatique à l'IUT de 
 ## Structure du code
 
 ```
-src/
-├── App.tsx              Assemblage des sections
-├── data/                Tous les textes du site (content.ts, cards.ts)
-├── sections/            Une section par fichier (Hero, Profile, Experience, Projects, Skills…)
-├── components/          Éléments réutilisables (Navbar, Globe, InfoCard, Logo…)
-├── hooks/               Section active, ambiance de couleurs, couleurs du thème
-└── index.css            Couleurs, ambiances et animations de défilement
-public/                  CV, logo, icônes et image de partage
+portfolio-react/
+├── .github/workflows/deploy.yml   Mise en ligne automatique sur GitHub Pages
+├── docs/                          Captures d'écran du README
+├── public/                        Fichiers copiés tels quels sur le site
+│   ├── cv/CV-Kiliane-Kafe.pdf     CV téléchargeable
+│   ├── icons/                     Icônes de l'onglet, du téléphone et de l'application
+│   ├── favicon.svg                Logo affiché dans l'onglet du navigateur
+│   ├── og-image.jpg               Image affichée quand le lien est partagé
+│   └── site.webmanifest           Nom et icônes quand le site est ajouté à l'écran d'accueil
+├── src/
+│   ├── main.tsx                   Point d'entrée
+│   ├── App.tsx                    Assemble les sections de la page
+│   ├── sections/                  Une section de la page par fichier
+│   │                              (Hero, Profile, Experience, Projects, Skills,
+│   │                               Education, Hobbies, Contact, Footer)
+│   ├── components/                Éléments réutilisables
+│   │   ├── Navbar.tsx             Barre de navigation
+│   │   ├── ButSkillsAccordion.tsx Compétences du BUT, ouvertes au survol
+│   │   ├── InfoCardDialog.tsx     Carte de présentation d'un langage ou d'un pays
+│   │   ├── LegalNoticeDialog.tsx  Mentions légales
+│   │   ├── TravelGlobe.tsx        Globe des voyages
+│   │   ├── TechLogo.tsx           Logos des langages et outils
+│   │   ├── SocialLogos.tsx        Logos LinkedIn, GitHub, e-mail
+│   │   ├── UiIcons.tsx            Petites icônes (menu, flèche, soleil…)
+│   │   └── …                      SectionHeader, Signature, ThemeToggle, Timeline, ScrollProgress
+│   ├── data/                      Tous les textes du site
+│   │   ├── content.ts             Profil, expériences, projets, compétences, loisirs
+│   │   ├── infoCards.ts           Contenu des cartes (langages et pays)
+│   │   └── globe-land-dots.json   Points des continents pour le globe
+│   ├── hooks/                     Section active, ambiance de couleurs, couleurs du thème
+│   ├── animations/                Réglages des animations (Motion)
+│   ├── styles/global.css          Couleurs, ambiances et animations de défilement
+│   └── assets/
+│       ├── fonts/                 Police de la signature
+│       └── images/                Photo de profil, affiches (games/) et pochettes (music/)
+├── index.html                     Page HTML, titre et métadonnées de partage
+├── package.json                   Dépendances et scripts
+└── vite.config.ts                 Configuration du build
 ```
 
-Pour modifier un texte, tout se trouve dans `src/data/content.ts` et `src/data/cards.ts`.
+Pour modifier un texte, tout se trouve dans `src/data/content.ts` et `src/data/infoCards.ts`.
 
 ## Lancer le projet
 

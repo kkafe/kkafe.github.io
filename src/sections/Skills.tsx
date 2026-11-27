@@ -1,23 +1,23 @@
 import { m } from 'motion/react';
 import { useState } from 'react';
-import { skillCards } from '../data/cards';
-import InfoCard, { type InfoCardData } from '../components/InfoCard';
+import { skillCards } from '../data/infoCards';
+import InfoCardDialog, { type InfoCardData } from '../components/InfoCardDialog';
 import { otherSkills, toolGroups } from '../data/content';
-import Logo, { type LogoName } from '../components/Logo';
+import TechLogo, { type TechLogoName } from '../components/TechLogo';
 import SectionHeader from '../components/SectionHeader';
-import ButCompetences from '../components/ButCompetences';
-import { fadeUp, inView, stagger } from '../components/motion';
+import ButSkillsAccordion from '../components/ButSkillsAccordion';
+import { fadeUp, inView, stagger } from '../animations/variants';
 
 export default function Skills() {
   const [card, setCard] = useState<InfoCardData | null>(null);
-  const open = (name: LogoName) => setCard({ title: name, visual: <Logo name={name} size={40} />, ...skillCards[name] });
+  const open = (name: TechLogoName) => setCard({ title: name, visual: <TechLogo name={name} size={40} />, ...skillCards[name] });
   return (
     <section id="competences" data-mood="competences" aria-labelledby="skills-title" className="mood-panel">
       <div className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8 md:py-32">
         <SectionHeader id="skills-title" label="Compétences" title="Compétences du BUT" intro="Les six compétences du BUT Informatique, et où je les ai mises en pratique." />
 
         <div className="mt-14">
-          <ButCompetences />
+          <ButSkillsAccordion />
         </div>
 
         <h3 className="mt-28 text-[clamp(1.6rem,1.3rem+1vw,2.1rem)] font-semibold tracking-[-0.01em]">Langages et outils</h3>
@@ -36,7 +36,7 @@ export default function Skills() {
                       className="group flex w-full cursor-pointer items-center gap-3 rounded-lg px-2 py-2 text-left transition-colors duration-200 hover:bg-accent-soft"
                     >
                       <span className="grid size-8 place-items-center transition-transform duration-300 group-hover:scale-110">
-                        <Logo name={item} size={26} />
+                        <TechLogo name={item} size={26} />
                       </span>
                       <span className="text-[1.02rem] whitespace-nowrap">{item}</span>
                       <span aria-hidden="true" className="ml-auto text-muted opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100">+</span>
@@ -63,7 +63,7 @@ export default function Skills() {
           ))}
         </m.div>
       </div>
-      <InfoCard data={card} onClose={() => setCard(null)} />
+      <InfoCardDialog data={card} onClose={() => setCard(null)} />
     </section>
   );
 }

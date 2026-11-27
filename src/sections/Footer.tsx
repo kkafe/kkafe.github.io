@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { nav, person } from '../data/content';
-import LegalNotice from '../components/LegalNotice';
-import { DownloadIcon } from '../components/Icons';
+import LegalNoticeDialog from '../components/LegalNoticeDialog';
+import { DownloadIcon } from '../components/UiIcons';
 
 const linkCls = 'link-line pb-0.5 text-[1.05rem] text-white/85 transition-colors hover:text-white';
 
@@ -91,7 +91,7 @@ export default function Footer() {
           licences Creative Commons. Logos : marques de leurs propriétaires.
         </div>
       </div>
-      <LegalNotice open={legal} onClose={() => setLegal(false)} />
+      <LegalNoticeDialog open={legal} onClose={() => setLegal(false)} />
     </footer>
   );
 }

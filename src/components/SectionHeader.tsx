@@ -1,5 +1,5 @@
 import { m } from 'motion/react';
-import { ease, inView } from './motion';
+import { ease, inView } from '../animations/variants';
 
 /** En-tête de section : petite étiquette d'accent, titre, puis une phrase d'introduction facultative. */
 export default function SectionHeader({ id, label, title, intro }: { id: string; label: string; title: string; intro?: string }) {

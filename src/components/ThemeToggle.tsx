@@ -1,6 +1,6 @@
 import { AnimatePresence, m } from 'motion/react';
 import { useState } from 'react';
-import { MoonIcon, SunIcon } from './Icons';
+import { MoonIcon, SunIcon } from './UiIcons';
 
 /** Bouton clair / sombre. Le choix est retenu par le navigateur. */
 export default function ThemeToggle() {

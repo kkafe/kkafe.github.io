@@ -1,9 +1,9 @@
 import { m } from 'motion/react';
-import portrait from '../assets/portrait.webp';
+import portrait from '../assets/images/profile-photo.webp';
 import { intro, person } from '../data/content';
-import { ArrowIcon, DownloadIcon, PinIcon } from '../components/Icons';
-import { GithubLogo, LinkedinLogo, MailLogo } from '../components/SocialIcons';
-import { ease } from '../components/motion';
+import { ArrowIcon, DownloadIcon, PinIcon } from '../components/UiIcons';
+import { GithubLogo, LinkedinLogo, MailLogo } from '../components/SocialLogos';
+import { ease } from '../animations/variants';
 
 const appear = (delay: number) => ({
   initial: { opacity: 0, y: 20 },

@@ -3,7 +3,7 @@
  * sur un langage dans « Compétences » ou sur un pays dans « Voyages »).
  * « usage » : votre propre expérience, à compléter ou modifier librement.
  */
-import type { LogoName } from '../components/Logo';
+import type { TechLogoName } from '../components/TechLogo';
 
 export type Fact = { label: string; value: string };
 /** Photo du monument (hébergée par Wikimedia Commons, avec son auteur et sa licence). */
@@ -21,7 +21,7 @@ export type Photo = {
 };
 export type Card = { kind: string; summary: string; facts: Fact[]; usage?: string; photo?: Photo };
 
-export const skillCards: Record<LogoName, Card> = {
+export const skillCards: Record<TechLogoName, Card> = {
   Java: {
     kind: 'Langage de programmation',
     summary: 'Langage orienté objet, compilé pour la machine virtuelle Java : le même programme fonctionne sur tous les systèmes.',

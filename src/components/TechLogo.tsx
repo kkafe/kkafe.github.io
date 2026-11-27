@@ -1,7 +1,7 @@
 /*
  * Logos des langages et outils (bibliothèque Devicon, via le paquet devicons-react).
  * Pour ajouter un logo : importez-le ici (liste complète : https://devicon.dev),
- * ajoutez son nom à LogoName et à LOGOS, puis utilisez ce nom dans data/content.ts.
+ * ajoutez son nom à TechLogoName et à LOGOS, puis utilisez ce nom dans data/content.ts.
  */
 import type { FunctionComponent, SVGProps } from 'react';
 import JavaOriginal from 'devicons-react/icons/JavaOriginal';
@@ -61,9 +61,9 @@ const LOGOS = {
   'Vibe coding': ClaudeSymbol,
 } satisfies Record<string, FunctionComponent<IconProps>>;
 
-export type LogoName = keyof typeof LOGOS;
+export type TechLogoName = keyof typeof LOGOS;
 
-export default function Logo({ name, size = 28 }: { name: LogoName; size?: number }) {
+export default function TechLogo({ name, size = 28 }: { name: TechLogoName; size?: number }) {
   const Icon = LOGOS[name] as FunctionComponent<IconProps>;
   return <Icon size={size} aria-hidden="true" focusable="false" />;
 }

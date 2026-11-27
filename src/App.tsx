@@ -7,12 +7,12 @@ import Experience from './sections/Experience';
 import Projects from './sections/Projects';
 import Skills from './sections/Skills';
 import Education from './sections/Education';
-import Loisirs from './sections/Loisirs';
+import Hobbies from './sections/Hobbies';
 import Contact from './sections/Contact';
 import Footer from './sections/Footer';
 import useMood from './hooks/useMood';
 
-const loadFeatures = () => import('./motion-features').then((r) => r.default);
+const loadFeatures = () => import('./animations/motion-features').then((r) => r.default);
 
 export default function App() {
   useMood();
@@ -33,7 +33,7 @@ export default function App() {
         <Projects />
         <Skills />
         <Education />
-        <Loisirs />
+        <Hobbies />
         <Contact />
       </main>
       <Footer />

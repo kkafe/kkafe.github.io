@@ -1,5 +1,5 @@
 import { m } from 'motion/react';
-import { ease } from './motion';
+import { ease } from '../animations/variants';
 
 /** Le logo : le prénom écrit à la main, qui se dessine de gauche à droite, avec un trait dessous. */
 export default function Signature({ className = '' }: { className?: string }) {

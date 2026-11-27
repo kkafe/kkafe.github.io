@@ -1,6 +1,6 @@
 import { m, useScroll } from 'motion/react';
 import { useRef, type ReactNode } from 'react';
-import { ease, inView } from './motion';
+import { ease, inView } from '../animations/variants';
 
 /** Frise verticale : la ligne d'accent se remplit au défilement, chaque étape apparaît en glissant. */
 export default function Timeline({ items }: { items: { key: string; meta: ReactNode; content: ReactNode; current?: boolean }[] }) {

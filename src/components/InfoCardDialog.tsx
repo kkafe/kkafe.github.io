@@ -4,13 +4,13 @@
  */
 import { m } from 'motion/react';
 import { useEffect, useRef, type ReactNode } from 'react';
-import type { Card } from '../data/cards';
-import { CloseIcon } from './Icons';
-import { ease } from './motion';
+import type { Card } from '../data/infoCards';
+import { CloseIcon } from './UiIcons';
+import { ease } from '../animations/variants';
 
 export type InfoCardData = Card & { title: string; visual: ReactNode };
 
-export default function InfoCard({ data, onClose }: { data: InfoCardData | null; onClose: () => void }) {
+export default function InfoCardDialog({ data, onClose }: { data: InfoCardData | null; onClose: () => void }) {
   const ref = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {

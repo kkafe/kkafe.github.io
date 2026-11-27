@@ -1,10 +1,10 @@
 import { m } from 'motion/react';
 import type { PointerEvent } from 'react';
 import { projects, type Project } from '../data/content';
-import Logo from '../components/Logo';
+import TechLogo from '../components/TechLogo';
 import SectionHeader from '../components/SectionHeader';
-import { ArrowIcon } from '../components/Icons';
-import { fadeUp, inView, stagger } from '../components/motion';
+import { ArrowIcon } from '../components/UiIcons';
+import { fadeUp, inView, stagger } from '../animations/variants';
 
 /** Carte de projet : se soulève au survol, un léger halo suit la souris et un trait d'accent se trace en haut. */
 function ProjectCard({ p, n }: { p: Project; n: number }) {
@@ -42,7 +42,7 @@ function ProjectCard({ p, n }: { p: Project; n: number }) {
           <span className="flex flex-wrap gap-2">
             {p.tech?.map((name) => (
               <span key={name} className="inline-flex items-center gap-1.5 rounded-md border border-line px-2.5 py-1 text-[0.85rem]">
-                <Logo name={name} size={16} /> {name}
+                <TechLogo name={name} size={16} /> {name}
               </span>
             ))}
           </span>
