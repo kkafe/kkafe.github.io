@@ -231,7 +231,6 @@ export type Song = { title: string; artist: string; style: string; image?: strin
 
 export const hobbies = {
   games: {
-    text: 'Passionné de jeux vidéo, j’aime autant y jouer que comprendre comment ils sont conçus. Cette curiosité m’a poussé à développer mon propre jeu : un Bomberman réalisé avec Godot.',
     list: [
       { title: 'Fortnite', genre: 'Battle royale', studio: 'Epic Games', image: fortniteImg, colors: ['#7b3fe4', '#29b6f6'] },
       { title: 'Rocket League', genre: 'Football en voiture', studio: 'Psyonix', image: rocketImg, colors: ['#1565c0', '#ff7a18'] },
@@ -241,7 +240,6 @@ export const hobbies = {
     ] satisfies Game[],
   },
   music: {
-    text: 'Des rappeurs français, belges et américains : les morceaux que j’écoute en boucle.',
     list: [
       { title: 'Life', artist: 'Hamza', style: 'Rappeur belge', image: hamzaImg, colors: ['#3949ab', '#ec407a'] },
       { title: 'Jamal', artist: 'Werenoi', style: 'Rappeur français', image: werenoiImg, colors: ['#bf360c', '#ffb300'] },

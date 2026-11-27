@@ -70,8 +70,7 @@ function Voyages() {
 function Games() {
   return (
     <div>
-      <p className="max-w-2xl text-[1.15rem] leading-relaxed text-muted">{hobbies.games.text}</p>
-      <motion.ul variants={stagger(0.07)} initial="hidden" animate="show" className="mt-10 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-5">
+      <motion.ul variants={stagger(0.07)} initial="hidden" animate="show" className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-5">
         {hobbies.games.list.map((g) => (
           <motion.li key={g.title} variants={fadeUp} className="group">
             <div
@@ -110,8 +109,7 @@ function Games() {
 function Music() {
   return (
     <div>
-      <p className="max-w-2xl text-[1.15rem] leading-relaxed text-muted">{hobbies.music.text}</p>
-      <motion.ul variants={stagger(0.08)} initial="hidden" animate="show" className="mt-10 grid gap-8 sm:grid-cols-3 sm:gap-6">
+      <motion.ul variants={stagger(0.08)} initial="hidden" animate="show" className="grid gap-8 sm:grid-cols-3 sm:gap-6">
         {hobbies.music.list.map((m) => (
           <motion.li key={m.title} variants={fadeUp} className="group">
             <div
