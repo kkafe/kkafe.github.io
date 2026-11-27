@@ -3,15 +3,37 @@
  * Les voyages gardent le globe ; les jeux vidéo et la musique ont chacun un petit visuel animé.
  * Textes et préférés à modifier dans data/content.ts (hobbies).
  */
-import { AnimatePresence, motion } from 'motion/react';
-import { useState } from 'react';
+import { AnimatePresence, m } from 'motion/react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { hobbies, homes, travels, type Trip } from '../data/content';
 import { countryCards } from '../data/cards';
 import InfoCard, { type InfoCardData } from '../components/InfoCard';
 import { PinIcon } from '../components/Icons';
-import Globe from '../components/Globe';
 import SectionHeader from '../components/SectionHeader';
 import { ease, fadeUp, inView, stagger } from '../components/motion';
+
+// Le globe (et ses milliers de points) n'est chargé qu'à l'approche de la section : la page s'ouvre plus vite
+const Globe = lazy(() => import('../components/Globe'));
+function LazyGlobe(props: { trips: Trip[]; homes: Trip[]; focus: Trip | null }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [near, setNear] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => e.isIntersecting && setNear(true), { rootMargin: '800px 0px' });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return (
+    <div ref={ref} className="aspect-square w-full">
+      {near && (
+        <Suspense fallback={null}>
+          <Globe {...props} />
+        </Suspense>
+      )}
+    </div>
+  );
+}
 
 const TABS = ['Voyages', 'Jeux vidéo', 'Musique'] as const;
 type Tab = (typeof TABS)[number];
@@ -32,11 +54,11 @@ function Voyages() {
         <p className="max-w-md text-[1.1rem] leading-relaxed text-muted">
           Huit destinations, de l’Afrique de l’Ouest à l’océan Indien et à l’Europe. Sélectionnez une destination pour la situer sur le globe et la découvrir.
         </p>
-        <motion.ul variants={stagger(0.05)} initial="hidden" animate="show" className="mt-8 flex flex-wrap gap-2">
+        <m.ul variants={stagger(0.05)} initial="hidden" animate="show" className="mt-8 flex flex-wrap gap-2">
           {travels.map((t) => {
             const on = focus?.name === t.name;
             return (
-              <motion.li key={t.name} variants={fadeUp}>
+              <m.li key={t.name} variants={fadeUp}>
                 <button
                   type="button"
                   aria-pressed={on}
@@ -46,22 +68,22 @@ function Voyages() {
                 >
                   {t.name}
                 </button>
-              </motion.li>
+              </m.li>
             );
           })}
-        </motion.ul>
+        </m.ul>
         <div className="mt-4 min-h-[1.6rem] text-[0.95rem] text-muted" aria-live="polite">
           <AnimatePresence mode="wait">
             {focus && (
-              <motion.p key={focus.name} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.3, ease }}>
+              <m.p key={focus.name} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.3, ease }}>
                 {focus.name}, {focus.region}
-              </motion.p>
+              </m.p>
             )}
           </AnimatePresence>
         </div>
       </div>
       <figure className="mx-auto w-full max-w-[480px]">
-        <Globe trips={travels} homes={homes} focus={focus} />
+        <LazyGlobe trips={travels} homes={homes} focus={focus} />
       </figure>
       <InfoCard data={card} onClose={() => setCard(null)} />
     </div>
@@ -72,9 +94,9 @@ function Voyages() {
 function Games() {
   return (
     <div>
-      <motion.ul variants={stagger(0.07)} initial="hidden" animate="show" className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-5">
+      <m.ul variants={stagger(0.07)} initial="hidden" animate="show" className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-5">
         {hobbies.games.list.map((g) => (
-          <motion.li key={g.title} variants={fadeUp} className="group">
+          <m.li key={g.title} variants={fadeUp} className="group">
             <div
               className="relative aspect-[3/4] overflow-hidden rounded-2xl shadow-[0_22px_40px_-24px_rgba(0,0,0,0.7)] transition-transform duration-300 ease-out group-hover:-translate-y-1.5"
               style={g.image ? undefined : { background: `linear-gradient(150deg, ${g.colors[0]}, ${g.colors[1]})` }}
@@ -84,6 +106,7 @@ function Games() {
                   src={g.image}
                   alt={`Affiche de ${g.title}`}
                   loading="lazy"
+                  decoding="async"
                   className="size-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                 />
               ) : (
@@ -100,9 +123,9 @@ function Games() {
             <p className="text-[0.9rem] text-muted">
               {g.genre} · {g.studio}
             </p>
-          </motion.li>
+          </m.li>
         ))}
-      </motion.ul>
+      </m.ul>
     </div>
   );
 }
@@ -110,18 +133,18 @@ function Games() {
 /* ---------- Musique : cartes façon lecteur de musique, avec un bouton lecture vert qui apparaît au survol ---------- */
 function Music() {
   return (
-    <motion.ul variants={stagger(0.08)} initial="hidden" animate="show" className="grid gap-5 sm:grid-cols-3">
-      {hobbies.music.list.map((m) => (
-        <motion.li
-          key={m.title}
+    <m.ul variants={stagger(0.08)} initial="hidden" animate="show" className="grid gap-5 sm:grid-cols-3">
+      {hobbies.music.list.map((song) => (
+        <m.li
+          key={song.title}
           variants={fadeUp}
           className="group rounded-xl bg-surface p-4 transition-colors duration-300 hover:bg-subtle"
         >
           <div
             className="relative aspect-square overflow-hidden rounded-lg shadow-[0_12px_30px_-10px_rgba(0,0,0,0.6)]"
-            style={m.image ? undefined : { background: `radial-gradient(circle at 30% 25%, ${m.colors[1]}, ${m.colors[0]} 70%)` }}
+            style={song.image ? undefined : { background: `radial-gradient(circle at 30% 25%, ${song.colors[1]}, ${song.colors[0]} 70%)` }}
           >
-            {m.image && <img src={m.image} alt={`Pochette de ${m.title}, ${m.artist}`} loading="lazy" className="size-full object-cover" />}
+            {song.image && <img src={song.image} alt={`Pochette de ${song.title}, ${song.artist}`} loading="lazy" decoding="async" className="size-full object-cover" />}
             {/* Bouton lecture : glisse vers le haut au survol */}
             <span
               aria-hidden="true"
@@ -132,7 +155,7 @@ function Music() {
               </svg>
             </span>
           </div>
-          <h3 className="mt-4 truncate text-[1.1rem] font-semibold">{m.title}</h3>
+          <h3 className="mt-4 truncate text-[1.1rem] font-semibold">{song.title}</h3>
           <p className="mt-0.5 flex items-center gap-2 text-[0.95rem] text-muted">
             {/* Petit égaliseur vert, animé au survol */}
             <span aria-hidden="true" className="flex h-3 items-end gap-[2px]">
@@ -140,11 +163,11 @@ function Music() {
                 <span key={i} className="eq-bar w-[3px] rounded-full bg-accent" style={{ height: `${h * 100}%`, animationDelay: `${i * 0.15}s` }} />
               ))}
             </span>
-            {m.artist} · {m.style}
+            {song.artist} · {song.style}
           </p>
-        </motion.li>
+        </m.li>
       ))}
-    </motion.ul>
+    </m.ul>
   );
 }
 
@@ -160,12 +183,12 @@ export default function Loisirs() {
   };
 
   return (
-    <section id="loisirs" data-mood={MOODS[tab]} aria-labelledby="loisirs-title">
+    <section id="loisirs" data-mood={MOODS[tab]} aria-labelledby="loisirs-title" className="mood-panel">
       <div className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8 md:py-32">
         <SectionHeader id="loisirs-title" label="Centres d'intérêt" title="Loisirs" intro="Ce qui m’anime en dehors du code." />
 
         {/* Onglets */}
-        <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={inView} transition={{ duration: 0.6, ease }}>
+        <m.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={inView} transition={{ duration: 0.6, ease }}>
           <div role="tablist" aria-label="Loisirs" onKeyDown={onKey} className="mt-10 inline-flex gap-1 rounded-xl border border-line bg-subtle p-1">
             {TABS.map((t, i) => {
               const on = t === tab;
@@ -181,21 +204,21 @@ export default function Loisirs() {
                   onClick={() => setTab(t)}
                   className="relative cursor-pointer rounded-lg px-4 py-2 text-[0.98rem] font-medium sm:px-5"
                 >
-                  {on && <motion.span layoutId="loisirs-pill" className="absolute inset-0 rounded-lg bg-accent" transition={{ duration: 0.4, ease }} />}
+                  {on && <m.span layoutId="loisirs-pill" className="absolute inset-0 rounded-lg bg-accent" transition={{ duration: 0.4, ease }} />}
                   <span className={`relative transition-colors ${on ? 'text-on-accent' : 'text-muted hover:text-ink'}`}>{t}</span>
                 </button>
               );
             })}
           </div>
-        </motion.div>
+        </m.div>
 
         <div id="loisirs-panel" role="tabpanel" aria-labelledby={`loisirs-tab-${TABS.indexOf(tab)}`} className="mt-12">
           <AnimatePresence mode="wait">
-            <motion.div key={tab} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.35, ease }}>
+            <m.div key={tab} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.35, ease }}>
               {tab === 'Voyages' && <Voyages />}
               {tab === 'Jeux vidéo' && <Games />}
               {tab === 'Musique' && <Music />}
-            </motion.div>
+            </m.div>
           </AnimatePresence>
         </div>
       </div>

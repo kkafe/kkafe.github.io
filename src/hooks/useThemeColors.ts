@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type RefObject } from 'react';
 
 export type ThemeColors = { paper: string; surface: string; ink: string; muted: string; line: string; accent: string; onAccent: string; dark: boolean };
 
-const read = (): ThemeColors => {
-  const cs = getComputedStyle(document.documentElement);
+const read = (el?: Element | null): ThemeColors => {
+  const cs = getComputedStyle(el ?? document.documentElement);
   const v = (n: string) => cs.getPropertyValue(n).trim();
   return {
     paper: v('--color-paper'), surface: v('--color-surface'), ink: v('--color-ink'), muted: v('--color-muted'), line: v('--color-line'),
@@ -12,29 +12,37 @@ const read = (): ThemeColors => {
   };
 };
 
-/** Couleurs du thème courant (pour le globe en canvas), mises à jour au changement clair/sombre et d'ambiance. */
-export default function useThemeColors() {
-  const [colors, setColors] = useState<ThemeColors>(read);
+/**
+ * Couleurs du thème à l'endroit d'un élément (pour le globe en canvas, qui prend l'ambiance de sa section),
+ * relues au changement clair/sombre, une fois le fondu des couleurs terminé.
+ */
+export default function useThemeColors(ref?: RefObject<Element | null>) {
+  const [colors, setColors] = useState<ThemeColors>(() => read(ref?.current));
   useEffect(() => {
-    // Relu tout de suite, puis à la fin du fondu de couleurs (changement de thème ou d'ambiance)
     let t: number | undefined;
-    const obs = new MutationObserver(() => {
-      setColors(read());
+    const refresh = () => {
       clearTimeout(t);
-      t = window.setTimeout(() => setColors(read()), 950);
-    });
-    obs.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'data-mood'] });
+      t = window.setTimeout(() => setColors(read(ref?.current)), 650);
+    };
+    setColors(read(ref?.current));
+    const obs = new MutationObserver(refresh);
+    obs.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
     return () => {
       obs.disconnect();
       clearTimeout(t);
     };
-  }, []);
+  }, [ref]);
   return colors;
 }
 
-/** '#2e5a88' -> 'rgba(46,90,136,0.4)' */
-export function rgba(hex: string, a: number) {
-  const h = hex.replace('#', '');
+/** '#2e5a88' ou 'rgb(46, 90, 136)' -> 'rgba(46,90,136,0.4)' */
+export function rgba(color: string, a: number) {
+  const m = color.match(/rgba?\(([^)]+)\)/);
+  if (m) {
+    const [r, g, b] = m[1].split(/[ ,/]+/).map(Number);
+    return `rgba(${r},${g},${b},${a})`;
+  }
+  const h = color.replace('#', '');
   const n = parseInt(h.length === 3 ? h.replace(/(.)/g, '$1$1') : h, 16);
   return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`;
 }

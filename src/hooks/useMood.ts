@@ -1,41 +1,43 @@
 import { useEffect } from 'react';
 
 /*
- * Ambiance de couleurs selon la section au centre de l'écran.
- * Chaque section porte son ambiance dans l'attribut data-mood (couleurs définies dans index.css) ;
- * on la recopie sur <html>, et toute la page change de couleurs en fondu.
- * Une section sans data-mood (accueil, contact) garde les couleurs du CV.
+ * La barre du haut (et la barre de progression) prennent l'ambiance de couleurs de la section
+ * au centre de l'écran. Les sections, elles, portent déjà leurs propres couleurs (index.css) :
+ * rien d'autre ne change pendant le défilement, ce qui garde la page fluide.
  */
 export default function useMood() {
   useEffect(() => {
-    const root = document.documentElement;
-    const sections = Array.from(document.querySelectorAll<HTMLElement>('main section[id]'));
+    const sections = Array.from(document.querySelectorAll<HTMLElement>('main section[data-mood]'));
     let active: HTMLElement | null = null;
+    let current = '';
 
     const apply = () => {
-      const mood = active?.dataset.mood;
-      if (mood) root.dataset.mood = mood;
-      else delete root.dataset.mood;
+      const mood = active?.dataset.mood ?? 'base';
+      if (mood === current) return;
+      current = mood;
+      document.querySelectorAll<HTMLElement>('[data-mood-follow]').forEach((el) => (el.dataset.mood = mood));
     };
 
-    // La section qui traverse la bande centrale de l'écran devient la section active
+    // La section qui traverse le haut de l'écran (sous la barre) devient la section active
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) if (e.isIntersecting) active = e.target as HTMLElement;
         apply();
       },
-      { rootMargin: '-45% 0px -45% 0px' },
+      { rootMargin: '-70px 0px -85% 0px' },
     );
     sections.forEach((s) => io.observe(s));
 
     // Une section peut changer d'ambiance (onglets des Loisirs)
-    const mo = new MutationObserver(apply);
+    const mo = new MutationObserver(() => {
+      current = '';
+      apply();
+    });
     sections.forEach((s) => mo.observe(s, { attributes: true, attributeFilter: ['data-mood'] }));
 
     return () => {
       io.disconnect();
       mo.disconnect();
-      delete root.dataset.mood;
     };
   }, []);
 }

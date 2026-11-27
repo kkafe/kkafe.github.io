@@ -2,7 +2,7 @@
  * Carte de présentation : fenêtre (élément <dialog> natif, accessible au clavier, fermeture avec Échap)
  * qui présente un langage ou un pays.
  */
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { useEffect, useRef, type ReactNode } from 'react';
 import type { Card } from '../data/cards';
 import { CloseIcon } from './Icons';
@@ -30,7 +30,7 @@ export default function InfoCard({ data, onClose }: { data: InfoCardData | null;
       className="info-card m-auto w-[calc(100%-2rem)] max-w-[30rem] overflow-visible bg-transparent p-0 text-ink"
     >
       {data && (
-        <motion.article
+        <m.article
           key={data.title}
           initial={{ opacity: 0, y: 16, scale: 0.97 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -117,7 +117,7 @@ export default function InfoCard({ data, onClose }: { data: InfoCardData | null;
               </p>
             )}
           </div>
-        </motion.article>
+        </m.article>
       )}
     </dialog>
   );

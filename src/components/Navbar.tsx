@@ -1,4 +1,4 @@
-import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'motion/react';
+import { AnimatePresence, m, useMotionValueEvent, useScroll } from 'motion/react';
 import { useEffect, useState } from 'react';
 import { nav, person } from '../data/content';
 import useActiveSection from '../hooks/useActiveSection';
@@ -24,12 +24,14 @@ export default function Navbar() {
   }, []);
 
   return (
-    <motion.header
+    <m.header
+      data-mood-follow
+      data-mood="base"
       initial={{ opacity: 0, y: -16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease }}
       className={`fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color] duration-300 ${
-        scrolled || open ? 'border-line bg-paper/85 backdrop-blur-md' : 'border-transparent'
+        scrolled || open ? 'border-line bg-paper/95 md:bg-paper/85 md:backdrop-blur-md' : 'border-transparent'
       }`}
     >
       <div className="mx-auto flex h-[68px] w-full max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
@@ -50,7 +52,7 @@ export default function Navbar() {
                   >
                     {item.label}
                   </a>
-                  {on && <motion.span layoutId="nav-underline" className="absolute inset-x-3 -bottom-px h-0.5 rounded-full bg-accent" transition={{ type: 'spring', stiffness: 400, damping: 36 }} />}
+                  {on && <m.span layoutId="nav-underline" className="absolute inset-x-3 -bottom-px h-0.5 rounded-full bg-accent" transition={{ type: 'spring', stiffness: 400, damping: 36 }} />}
                 </li>
               );
             })}
@@ -77,19 +79,19 @@ export default function Navbar() {
 
       <AnimatePresence>
         {open && (
-          <motion.nav id="menu-mobile" aria-label="Sections" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.35, ease }} className="overflow-hidden lg:hidden">
+          <m.nav id="menu-mobile" aria-label="Sections" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.35, ease }} className="overflow-hidden lg:hidden">
             <ul className="mx-auto max-w-6xl px-5 pt-1 pb-5">
               {nav.map((item, i) => (
-                <motion.li key={item.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.04 * i + 0.08, duration: 0.35, ease }}>
+                <m.li key={item.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.04 * i + 0.08, duration: 0.35, ease }}>
                   <a href={`#${item.id}`} onClick={() => setOpen(false)} className="block border-b border-line py-3 text-[1.05rem]">
                     {item.label}
                   </a>
-                </motion.li>
+                </m.li>
               ))}
             </ul>
-          </motion.nav>
+          </m.nav>
         )}
       </AnimatePresence>
-    </motion.header>
+    </m.header>
   );
 }

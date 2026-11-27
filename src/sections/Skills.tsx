@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { useState } from 'react';
 import { skillCards } from '../data/cards';
 import InfoCard, { type InfoCardData } from '../components/InfoCard';
@@ -12,7 +12,7 @@ export default function Skills() {
   const [card, setCard] = useState<InfoCardData | null>(null);
   const open = (name: LogoName) => setCard({ title: name, visual: <Logo name={name} size={40} />, ...skillCards[name] });
   return (
-    <section id="competences" data-mood="competences" aria-labelledby="skills-title">
+    <section id="competences" data-mood="competences" aria-labelledby="skills-title" className="mood-panel">
       <div className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8 md:py-32">
         <SectionHeader id="skills-title" label="Compétences" title="Compétences du BUT" intro="Les six compétences du BUT Informatique, et où je les ai mises en pratique." />
 
@@ -22,9 +22,9 @@ export default function Skills() {
 
         <h3 className="mt-28 text-[clamp(1.6rem,1.3rem+1vw,2.1rem)] font-semibold tracking-[-0.01em]">Langages et outils</h3>
 
-        <motion.div variants={stagger(0.08)} initial="hidden" whileInView="show" viewport={inView} className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <m.div variants={stagger(0.08)} initial="hidden" whileInView="show" viewport={inView} className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {toolGroups.map((group) => (
-            <motion.div key={group.title} variants={fadeUp} className="rounded-2xl border border-line bg-surface p-6">
+            <m.div key={group.title} variants={fadeUp} className="rounded-2xl border border-line bg-surface p-6">
               <h3 className="text-[0.82rem] font-medium tracking-[0.08em] text-muted uppercase">{group.title}</h3>
               <ul className="mt-4 grid gap-1">
                 {group.items.map((item) => (
@@ -44,13 +44,13 @@ export default function Skills() {
                   </li>
                 ))}
               </ul>
-            </motion.div>
+            </m.div>
           ))}
-        </motion.div>
+        </m.div>
 
-        <motion.div variants={stagger(0.08)} initial="hidden" whileInView="show" viewport={inView} className="mt-6 grid gap-6 md:grid-cols-3">
+        <m.div variants={stagger(0.08)} initial="hidden" whileInView="show" viewport={inView} className="mt-6 grid gap-6 md:grid-cols-3">
           {otherSkills.map((g) => (
-            <motion.div key={g.title} variants={fadeUp} className="rounded-2xl border border-line bg-surface p-6">
+            <m.div key={g.title} variants={fadeUp} className="rounded-2xl border border-line bg-surface p-6">
               <h3 className="text-[0.82rem] font-medium tracking-[0.08em] text-muted uppercase">{g.title}</h3>
               <ul className="mt-4 flex flex-wrap gap-2">
                 {g.items.map((it) => (
@@ -59,9 +59,9 @@ export default function Skills() {
                   </li>
                 ))}
               </ul>
-            </motion.div>
+            </m.div>
           ))}
-        </motion.div>
+        </m.div>
       </div>
       <InfoCard data={card} onClose={() => setCard(null)} />
     </section>

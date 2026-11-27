@@ -15,7 +15,7 @@ type Props = { trips: Trip[]; homes: Trip[]; focus: Trip | null };
  */
 export default function Globe({ trips, homes, focus }: Props) {
   const ref = useRef<HTMLCanvasElement>(null);
-  const colors = useThemeColors();
+  const colors = useThemeColors(ref);
   const state = useRef({ lon: 20, lat: 10, target: null as null | { lon: number; lat: number }, drag: null as null | { x: number; y: number; lon: number; lat: number }, idle: 0 });
 
   // Nouvelle destination choisie : on vise son centre
@@ -67,15 +67,15 @@ export default function Globe({ trips, homes, focus }: Props) {
       const R = size * 0.42;
       ctx.clearRect(0, 0, size, size);
 
-      // Ombre portée douce, puis la sphère couleur papier
+      // Ombre portée douce, puis la sphère aux couleurs de la section
       const shadow = ctx.createRadialGradient(c + R * 0.06, c + R * 0.08, R * 0.9, c + R * 0.06, c + R * 0.08, R * 1.1);
       shadow.addColorStop(0, rgba(colors.dark ? '#000000' : '#1b1b1b', colors.dark ? 0.35 : 0.12));
       shadow.addColorStop(1, rgba('#1b1b1b', 0));
       ctx.fillStyle = shadow;
       ctx.fillRect(0, 0, size, size);
       const sphere = ctx.createRadialGradient(c - R * 0.35, c - R * 0.4, R * 0.1, c, c, R);
-      sphere.addColorStop(0, colors.dark ? '#26241f' : '#ffffff');
-      sphere.addColorStop(1, colors.dark ? '#141311' : '#ebe8e3');
+      sphere.addColorStop(0, colors.surface);
+      sphere.addColorStop(1, colors.paper);
       ctx.fillStyle = sphere;
       ctx.beginPath();
       ctx.arc(c, c, R, 0, Math.PI * 2);

@@ -3,7 +3,7 @@
  * Ordinateur : six colonnes côte à côte, la colonne survolée s'élargit pour présenter la compétence.
  * Téléphone : six lignes empilées, la ligne choisie s'ouvre.
  */
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { useState } from 'react';
 import { butSkills } from '../data/content';
 import { ease } from './motion';
@@ -44,7 +44,7 @@ export default function ButCompetences() {
 
             {/* Contenu de la compétence ouverte */}
             {on && (
-              <motion.div
+              <m.div
                 id={`but-panel-${i}`}
                 role="region"
                 aria-labelledby={`but-btn-${i}`}
@@ -62,7 +62,7 @@ export default function ButCompetences() {
                   <p className="mt-4 max-w-md text-[1.2rem] leading-snug md:mt-6 md:text-[1.35rem]">{s.text}</p>
                 </div>
                 <p className="mt-5 max-w-md border-l-2 border-current/40 pl-4 text-[0.98rem] opacity-85">{s.example}</p>
-              </motion.div>
+              </m.div>
             )}
           </div>
         );

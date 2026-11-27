@@ -1,4 +1,4 @@
-import { MotionConfig } from 'motion/react';
+import { LazyMotion, MotionConfig } from 'motion/react';
 import Navbar from './components/Navbar';
 import ScrollProgress from './components/ScrollProgress';
 import Hero from './sections/Hero';
@@ -10,13 +10,16 @@ import Education from './sections/Education';
 import Loisirs from './sections/Loisirs';
 import Contact from './sections/Contact';
 import Footer from './sections/Footer';
-import SceneTransition from './components/SceneTransition';
 import useMood from './hooks/useMood';
+
+const loadFeatures = () => import('./motion-features').then((r) => r.default);
 
 export default function App() {
   useMood();
   return (
     // reducedMotion="user" : animations coupées si le visiteur l'a demandé dans son système
+    // LazyMotion + « m » : seules les fonctions d'animation utilisées sont chargées (site plus léger)
+    <LazyMotion features={loadFeatures} strict>
     <MotionConfig reducedMotion="user">
       <a href="#profil" className="fixed top-3 left-3 z-[100] -translate-y-24 rounded-lg bg-ink px-4 py-2 text-paper focus-visible:translate-y-0">
         Aller au contenu
@@ -25,29 +28,16 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
-        <SceneTransition>
-          <Profile />
-        </SceneTransition>
-        <SceneTransition>
-          <Experience />
-        </SceneTransition>
-        <SceneTransition>
-          <Projects />
-        </SceneTransition>
-        <SceneTransition>
-          <Skills />
-        </SceneTransition>
-        <SceneTransition>
-          <Education />
-        </SceneTransition>
-        <SceneTransition>
-          <Loisirs />
-        </SceneTransition>
-        <SceneTransition>
-          <Contact />
-        </SceneTransition>
+        <Profile />
+        <Experience />
+        <Projects />
+        <Skills />
+        <Education />
+        <Loisirs />
+        <Contact />
       </main>
       <Footer />
     </MotionConfig>
+    </LazyMotion>
   );
 }

@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, m } from 'motion/react';
 import { useState } from 'react';
 import { MoonIcon, SunIcon } from './Icons';
 
@@ -23,7 +23,7 @@ export default function ThemeToggle() {
       className="grid size-10 cursor-pointer place-items-center rounded-lg border border-line text-muted transition-colors duration-200 hover:text-ink"
     >
       <AnimatePresence mode="wait" initial={false}>
-        <motion.span
+        <m.span
           key={dark ? 'moon' : 'sun'}
           initial={{ rotate: -90, opacity: 0, scale: 0.6 }}
           animate={{ rotate: 0, opacity: 1, scale: 1 }}
@@ -32,7 +32,7 @@ export default function ThemeToggle() {
           className="grid place-items-center"
         >
           {dark ? <MoonIcon /> : <SunIcon />}
-        </motion.span>
+        </m.span>
       </AnimatePresence>
     </button>
   );

@@ -2,7 +2,7 @@
  * Mentions légales, crédits et données personnelles (fenêtre ouverte depuis le pied de page).
  * Obligation de la loi pour la confiance dans l'économie numérique (LCEN) : identifier l'éditeur et l'hébergeur.
  */
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { useEffect, useRef, type ReactNode } from 'react';
 import { person } from '../data/content';
 import { CloseIcon } from './Icons';
@@ -39,7 +39,7 @@ export default function LegalNotice({ open, onClose }: { open: boolean; onClose:
       className="info-card m-auto max-h-[88vh] w-[calc(100%-2rem)] max-w-[34rem] overflow-visible bg-transparent p-0 text-ink"
     >
       {open && (
-        <motion.article
+        <m.article
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease }}
@@ -80,7 +80,7 @@ export default function LegalNotice({ open, onClose }: { open: boolean; onClose:
               <p>Ce site n’utilise aucun cookie et je ne collecte aucune donnée personnelle.</p>
             </Part>
           </div>
-        </motion.article>
+        </m.article>
       )}
     </dialog>
   );

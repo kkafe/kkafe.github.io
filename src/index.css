@@ -1,6 +1,15 @@
 @import 'tailwindcss';
 
 /* Le mode sombre s'active avec la classe .dark sur <html> (bouton dans la barre du haut). Mode clair par défaut. */
+/* Police manuscrite de la signature, réduite aux seules lettres de « kiliane » (5 Ko au lieu de 75) */
+@font-face {
+  font-family: 'Caveat Signature';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400 700;
+  src: url('./assets/fonts/caveat-signature.woff2') format('woff2');
+}
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 /*
@@ -20,7 +29,7 @@
   --color-on-accent: #ffffff;
 
   --font-sans: 'Jost Variable', 'Jost', 'Futura', 'Century Gothic', system-ui, sans-serif;
-  --font-hand: 'Caveat Variable', 'Caveat', 'Segoe Script', cursive; /* la signature du logo */
+  --font-hand: 'Caveat Signature', 'Caveat', 'Segoe Script', cursive; /* la signature du logo */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -127,9 +136,12 @@
 }
 
 /*
- * Ambiances de couleur par sujet : à chaque section (et à chaque onglet des Loisirs), toute la page change
- * de couleurs en douceur (attribut data-mood sur <html>, posé par hooks/useMood.ts).
- * @property rend les couleurs « animables » : le fondu se fait sur toute la page à la fois.
+ * Ambiances de couleur par sujet.
+ * Chaque section porte son ambiance (attribut data-mood) : ses couleurs ne s'appliquent qu'à elle,
+ * et chaque section est un panneau qui glisse sur le précédent. Les couleurs changent donc au fil du
+ * défilement sans aucun calcul pendant le scroll. Seule la barre du haut suit l'ambiance de la section
+ * affichée (hooks/useMood.ts), avec un petit fondu.
+ * @property rend les couleurs « animables » (fondu de la barre du haut et des onglets des Loisirs).
  */
 @property --color-paper { syntax: '<color>'; inherits: true; initial-value: #ffffff; }
 @property --color-surface { syntax: '<color>'; inherits: true; initial-value: #ffffff; }
@@ -141,18 +153,60 @@
 @property --color-accent-soft { syntax: '<color>'; inherits: true; initial-value: #ecebe7; }
 @property --color-on-accent { syntax: '<color>'; inherits: true; initial-value: #ffffff; }
 
-html {
+[data-mood],
+[data-mood-follow] {
   transition:
-    --color-paper 0.9s ease, --color-surface 0.9s ease, --color-subtle 0.9s ease, --color-ink 0.9s ease,
-    --color-muted 0.9s ease, --color-line 0.9s ease, --color-accent 0.9s ease, --color-accent-soft 0.9s ease,
-    --color-on-accent 0.9s ease;
+    --color-paper 0.6s ease, --color-surface 0.6s ease, --color-subtle 0.6s ease, --color-ink 0.6s ease,
+    --color-muted 0.6s ease, --color-line 0.6s ease, --color-accent 0.6s ease, --color-accent-soft 0.6s ease,
+    --color-on-accent 0.6s ease;
 }
 @media (prefers-reduced-motion: reduce) {
-  html { transition: none; }
+  [data-mood],
+  [data-mood-follow] { transition: none; }
+}
+
+/* Panneaux de section : fond de leur ambiance, coins arrondis en haut, légère ombre sur le panneau précédent */
+@layer base {
+  section[data-mood] {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+  }
+}
+@layer components {
+  .mood-panel {
+    position: relative;
+    margin-top: -2rem;
+    border-radius: 2rem 2rem 0 0;
+    box-shadow: 0 -24px 48px -36px rgb(0 0 0 / 0.45);
+  }
+}
+
+/* Ambiance de base (accueil, contact, barre du haut) : les couleurs du CV */
+[data-mood='base'] {
+  --color-paper: #ffffff;
+  --color-surface: #ffffff;
+  --color-subtle: #efedea;
+  --color-ink: #1d1c1a;
+  --color-muted: #66635c;
+  --color-line: #e2dfda;
+  --color-accent: #58554c;
+  --color-accent-soft: #ecebe7;
+  --color-on-accent: #ffffff;
+}
+.dark [data-mood='base'] {
+  --color-paper: #141311;
+  --color-surface: #1c1b18;
+  --color-subtle: #181715;
+  --color-ink: #f1efea;
+  --color-muted: #a8a397;
+  --color-line: #2e2c28;
+  --color-accent: #cfc9bd;
+  --color-accent-soft: #2a2824;
+  --color-on-accent: #1d1c1a;
 }
 
 /* Profil : turquoise du lagon de Mayotte */
-html[data-mood='profil'] {
+[data-mood='profil'] {
   --color-paper: #f1f9f8;
   --color-surface: #ffffff;
   --color-subtle: #e1f2f0;
@@ -163,7 +217,8 @@ html[data-mood='profil'] {
   --color-accent-soft: #d8efec;
   --color-on-accent: #ffffff;
 }
-html.dark[data-mood='profil'] {
+
+.dark [data-mood='profil'] {
   --color-paper: #0b1c1b;
   --color-surface: #112624;
   --color-subtle: #0e2220;
@@ -176,7 +231,7 @@ html.dark[data-mood='profil'] {
 }
 
 /* Expérience : bleu marine et or, l'univers professionnel et institutionnel */
-html[data-mood='experience'] {
+[data-mood='experience'] {
   --color-paper: #0d1626;
   --color-surface: #142036;
   --color-subtle: #111c30;
@@ -189,7 +244,7 @@ html[data-mood='experience'] {
 }
 
 /* Projets : thème d'éditeur de code, ardoise et cyan */
-html[data-mood='projets'] {
+[data-mood='projets'] {
   --color-paper: #0f1218;
   --color-surface: #171c25;
   --color-subtle: #141922;
@@ -202,7 +257,7 @@ html[data-mood='projets'] {
 }
 
 /* Compétences : indigo, couleur de la tech et de la formation BUT */
-html[data-mood='competences'] {
+[data-mood='competences'] {
   --color-paper: #f6f5fe;
   --color-surface: #ffffff;
   --color-subtle: #ebe9fc;
@@ -213,7 +268,8 @@ html[data-mood='competences'] {
   --color-accent-soft: #e4e2fb;
   --color-on-accent: #ffffff;
 }
-html.dark[data-mood='competences'] {
+
+.dark [data-mood='competences'] {
   --color-paper: #12112a;
   --color-surface: #1a1838;
   --color-subtle: #161532;
@@ -226,7 +282,7 @@ html.dark[data-mood='competences'] {
 }
 
 /* Formation : rose brique de Toulouse, la ville rose où j'étudie */
-html[data-mood='formation'] {
+[data-mood='formation'] {
   --color-paper: #fcf4f1;
   --color-surface: #ffffff;
   --color-subtle: #f7e5de;
@@ -237,7 +293,8 @@ html[data-mood='formation'] {
   --color-accent-soft: #f6e1d9;
   --color-on-accent: #ffffff;
 }
-html.dark[data-mood='formation'] {
+
+.dark [data-mood='formation'] {
   --color-paper: #1e1210;
   --color-surface: #281815;
   --color-subtle: #231512;
@@ -250,7 +307,7 @@ html.dark[data-mood='formation'] {
 }
 
 /* Voyages : bleu océan (clair) */
-html[data-mood='voyages'] {
+[data-mood='voyages'] {
   --color-paper: #f1f7fb;
   --color-surface: #ffffff;
   --color-subtle: #e1eef6;
@@ -261,8 +318,9 @@ html[data-mood='voyages'] {
   --color-accent-soft: #dbeaf5;
   --color-on-accent: #ffffff;
 }
+
 /* Voyages en mode sombre : bleu nuit */
-html.dark[data-mood='voyages'] {
+.dark [data-mood='voyages'] {
   --color-paper: #0c1824;
   --color-surface: #12212f;
   --color-subtle: #0f1d2a;
@@ -273,8 +331,9 @@ html.dark[data-mood='voyages'] {
   --color-accent-soft: #15293a;
   --color-on-accent: #08131d;
 }
+
 /* Jeux vidéo : nuit violette et néon */
-html[data-mood='jeux'] {
+[data-mood='jeux'] {
   --color-paper: #0e0a1c;
   --color-surface: #18122d;
   --color-subtle: #140f26;
@@ -285,8 +344,9 @@ html[data-mood='jeux'] {
   --color-accent-soft: #221a3d;
   --color-on-accent: #ffffff;
 }
+
 /* Musique : noir et vert, façon lecteur de musique */
-html[data-mood='musique'] {
+[data-mood='musique'] {
   --color-paper: #121212;
   --color-surface: #181818;
   --color-subtle: #1a1a1a;
@@ -296,4 +356,46 @@ html[data-mood='musique'] {
   --color-accent: #1ed760;
   --color-accent-soft: #1b2b20;
   --color-on-accent: #000000;
+}
+
+/*
+ * Animations liées au défilement, calculées par le navigateur lui-même (hors JavaScript),
+ * donc parfaitement fluides. Sans support (anciens navigateurs), le contenu reste simplement immobile.
+ */
+.scroll-progress {
+  transform-origin: left;
+  transform: scaleX(0);
+}
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    animation: grow-x linear both;
+    animation-timeline: scroll(root);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    /* Entrée des sections : le contenu monte et apparaît quand le panneau arrive */
+    .mood-panel > * {
+      animation: scene-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 75%;
+    }
+    /* Accueil : le quadrillage et la photo descendent un peu moins vite que la page */
+    .parallax-grid,
+    .parallax-photo {
+      animation: parallax linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 100vh;
+    }
+    .parallax-photo { --parallax: 60px; }
+    .parallax-grid { --parallax: 120px; }
+  }
+}
+@keyframes grow-x {
+  to { transform: scaleX(1); }
+}
+@keyframes scene-in {
+  from { opacity: 0.2; transform: translateY(64px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes parallax {
+  to { transform: translateY(var(--parallax)); }
 }
