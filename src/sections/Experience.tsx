@@ -1,6 +1,7 @@
 import { experiences } from '../data/content';
 import SectionHeader from '../components/SectionHeader';
 import Timeline from '../components/Timeline';
+import CompetenceLinks from '../components/CompetenceLinks';
 
 export default function Experience() {
   return (
@@ -13,7 +14,7 @@ export default function Experience() {
             current: i === 0,
             meta: <span className="inline-block rounded-full bg-accent-soft px-2.5 py-0.5 text-[0.82rem] font-medium text-accent">{job.type}</span>,
             content: (
-              <div className="rounded-xl border border-line bg-surface p-6 transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_40px_-24px_rgba(22,24,29,0.35)]">
+              <div id={job.id} className="proof-target rounded-xl border border-line bg-surface p-6 transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_40px_-24px_rgba(22,24,29,0.35)]">
                 <h3 className="text-[1.3rem] leading-snug font-semibold">{job.role}</h3>
                 <p className="text-muted">{job.company}</p>
                 <ul className="mt-4 grid gap-2.5">
@@ -24,6 +25,7 @@ export default function Experience() {
                     </li>
                   ))}
                 </ul>
+                <CompetenceLinks anchorId={job.id} />
               </div>
             ),
           }))}

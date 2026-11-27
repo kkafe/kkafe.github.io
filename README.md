@@ -10,7 +10,9 @@ Portfolio personnel d'un étudiant en 3e année de BUT Informatique à l'IUT de 
 
 - **Ambiances de couleurs par section** : chaque partie du site a sa palette (turquoise pour le profil, marine et or pour l'expérience, noir et vert pour la musique…), avec des panneaux qui glissent les uns sur les autres au défilement.
 - **Animations fluides** : les animations liées au défilement sont calculées par le navigateur (CSS `animation-timeline`), sans JavaScript pendant le scroll.
-- **Compétences du BUT** en accordéon, qui s'ouvre au survol.
+- **Six compétences** en accordéon, ouvertes au survol : pour chacune, ma progression et les projets qui la prouvent.
+- **Liens entre projets et compétences** dans les deux sens : chaque projet renvoie aux compétences qu'il mobilise, chaque compétence renvoie à ses preuves.
+- **Formulaire de contact** qui transmet les messages par e-mail (service FormSubmit), sans serveur.
 - **Cartes de présentation** (fenêtres `<dialog>` accessibles) pour chaque langage et chaque pays visité, avec photo du monument.
 - **Globe interactif** des voyages, dessiné en canvas (environ 7 000 points), chargé seulement à l'approche de la section.
 - **Mode clair et sombre**, mémorisé dans le navigateur.
@@ -57,7 +59,9 @@ portfolio-react/
 │   │                               Education, Hobbies, Contact, Footer)
 │   ├── components/                Éléments réutilisables
 │   │   ├── Navbar.tsx             Barre de navigation
-│   │   ├── ButSkillsAccordion.tsx Compétences du BUT, ouvertes au survol
+│   │   ├── SkillsAccordion.tsx    Les six compétences, avec progression et preuves
+│   │   ├── CompetenceLinks.tsx    Liens d'un projet vers ses compétences
+│   │   ├── ContactForm.tsx        Formulaire de contact
 │   │   ├── InfoCardDialog.tsx     Carte de présentation d'un langage ou d'un pays
 │   │   ├── LegalNoticeDialog.tsx  Mentions légales
 │   │   ├── TravelGlobe.tsx        Globe des voyages
@@ -66,7 +70,7 @@ portfolio-react/
 │   │   ├── UiIcons.tsx            Petites icônes (menu, flèche, soleil…)
 │   │   └── …                      SectionHeader, Signature, ThemeToggle, Timeline, ScrollProgress
 │   ├── data/                      Tous les textes du site
-│   │   ├── content.ts             Profil, expériences, projets, compétences, loisirs
+│   │   ├── content.ts             Profil, expériences, projets, compétences et leurs preuves, loisirs
 │   │   ├── infoCards.ts           Contenu des cartes (langages et pays)
 │   │   └── globe-land-dots.json   Points des continents pour le globe
 │   ├── hooks/                     Section active, ambiance de couleurs, couleurs du thème

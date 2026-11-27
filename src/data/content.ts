@@ -47,10 +47,12 @@ export const about = {
 };
 
 /* ---------- Expérience professionnelle ---------- */
-export type Job = { role: string; company: string; type: string; points: string[]; tech?: TechLogoName[] };
+// id : ancre du lien depuis les compétences (#experience-…)
+export type Job = { id: string; role: string; company: string; type: string; points: string[]; tech?: TechLogoName[] };
 
 export const experiences: Job[] = [
   {
+    id: 'experience-portail-rh',
     role: 'Développeur web',
     company: 'Assemblée Départementale de Mayotte',
     type: 'Stage',
@@ -60,6 +62,7 @@ export const experiences: Job[] = [
     ],
   },
   {
+    id: 'experience-sogea',
     role: 'Assistant informatique',
     company: 'Sogéa',
     type: "Emploi d'été",
@@ -73,8 +76,11 @@ export const experiences: Job[] = [
 /* ---------- Projets ----------
  * tech : logos affichés sur la carte (noms de la liste TechLogoName dans components/TechLogo.tsx)
  * link : facultatif, par exemple le dépôt GitHub du projet
+ * Les compétences affichées sur la carte sont déduites automatiquement des preuves listées dans « competences » plus bas.
+ * image : facultatif, une capture d'écran du projet (dossier assets/images/projects)
  */
 export type Project = {
+  id: string;
   category: string;
   title: string;
   context?: string;
@@ -82,10 +88,12 @@ export type Project = {
   highlights?: string[];
   tech?: TechLogoName[];
   link?: { label: string; href: string };
+  image?: string;
 };
 
 export const projects: Project[] = [
   {
+    id: 'projet-ecommerce',
     category: 'Application web',
     title: 'Site e-commerce',
     context: 'Projet en équipe, pour un client',
@@ -97,6 +105,7 @@ export const projects: Project[] = [
     ],
   },
   {
+    id: 'projet-besoin-client',
     category: 'Projet client',
     title: "Implémentation d'un besoin client",
     context: 'Projet en équipe',
@@ -104,6 +113,7 @@ export const projects: Project[] = [
     highlights: ['Collecte des besoins en entretien', 'Conception de la solution en équipe'],
   },
   {
+    id: 'projet-bomberman',
     category: 'Jeu vidéo',
     title: 'Bomberman',
     context: 'Projet de formation',
@@ -111,6 +121,7 @@ export const projects: Project[] = [
     tech: ['Godot'],
   },
   {
+    id: 'projet-jeu-de-la-vie',
     category: 'Simulation',
     title: 'Jeu de la vie',
     context: 'Projet de formation',
@@ -168,50 +179,101 @@ export const contact = {
   sentence: 'Pour une opportunité de stage, un projet ou une question, n’hésitez pas à me contacter.',
 };
 
-// Les 6 compétences du BUT Informatique : verbe, intitulé officiel, phrase courte et exemple concret
-export type ButSkill = { code: string; verb: string; official: string; text: string; example: string };
-export const butSkills: ButSkill[] = [
+/* ---------- Compétences ----------
+ * Six compétences présentées avec mes mots : ce que je sais faire, comment j'ai progressé, et les preuves.
+ * proofs : liens vers un projet (#projet-…), une expérience (#experience-…) ou une page externe.
+ */
+export type CompetenceId = 'developper' | 'optimiser' | 'administrer' | 'donnees' | 'projet' | 'equipe';
+export type Proof = { label: string; href: string; comment: string };
+export type Competence = {
+  id: CompetenceId;
+  verb: string;
+  title: string;
+  text: string;
+  before: string;
+  now: string;
+  proofs: Proof[];
+  note?: string;
+};
+
+const portfolioRepo = 'https://github.com/kkafe/kkafe.github.io';
+
+export const competences: Competence[] = [
   {
-    code: 'C1 · DEV',
-    verb: 'Réaliser',
-    official: 'Réaliser un développement d’application',
-    text: 'Transformer un besoin en application qui fonctionne.',
-    example: 'Le site e-commerce en équipe et le portail RH développé en stage.',
+    id: 'developper',
+    verb: 'Développer',
+    title: 'Concevoir et coder des applications',
+    text: 'Transformer un besoin en une application web ou un logiciel qui fonctionne.',
+    before: 'De petits programmes pour apprendre les bases de la programmation.',
+    now: 'Des applications web complètes, de l’interface à la base de données, utilisées par de vrais utilisateurs.',
+    proofs: [
+      { label: 'Portail RH (stage)', href: '#experience-portail-rh', comment: 'Portail interne utilisé par les agents de l’Assemblée départementale.' },
+      { label: 'Site e-commerce', href: '#projet-ecommerce', comment: 'Produits, paniers et commandes, développés en équipe.' },
+      { label: 'Bomberman', href: '#projet-bomberman', comment: 'Un jeu vidéo complet, réalisé avec le moteur Godot.' },
+    ],
   },
   {
-    code: 'C2 · OPT',
+    id: 'optimiser',
     verb: 'Optimiser',
-    official: 'Optimiser des applications informatiques',
-    text: 'Rendre un programme plus rapide et plus fiable.',
-    example: 'Les algorithmes de la simulation du Jeu de la vie.',
+    title: 'Rendre un programme rapide et fiable',
+    text: 'Choisir les bons algorithmes et repérer ce qui ralentit un programme.',
+    before: 'Des programmes qui fonctionnaient, sans me soucier de leur rapidité.',
+    now: 'Je mesure ce qui ralentit une application et je le corrige.',
+    proofs: [
+      { label: 'Jeu de la vie', href: '#projet-jeu-de-la-vie', comment: 'Calculer chaque génération d’une grande grille sans ralentissement.' },
+      { label: 'Ce portfolio', href: portfolioRepo, comment: 'Chargement à la demande et animations allégées : une note de performance de 89/100 sur téléphone.' },
+    ],
   },
   {
-    code: 'C3 · ADM',
+    id: 'administrer',
     verb: 'Administrer',
-    official: 'Administrer des systèmes informatiques communicants complexes',
-    text: 'Installer, configurer et maintenir des systèmes et des réseaux.',
-    example: 'L’inventaire du matériel et des logiciels informatiques chez Sogéa.',
+    title: 'Installer et maintenir un parc informatique',
+    text: 'Installer, configurer et suivre le matériel, les logiciels et les mises en ligne.',
+    before: 'Une découverte en cours : systèmes d’exploitation, réseaux et ligne de commande.',
+    now: 'Une première expérience en entreprise, et la mise en ligne automatique de mes projets.',
+    proofs: [
+      { label: 'Sogéa', href: '#experience-sogea', comment: 'Mise à jour de l’inventaire du matériel et des logiciels.' },
+      { label: 'Ce portfolio', href: portfolioRepo, comment: 'Mis en ligne automatiquement à chaque modification du code.' },
+    ],
+    note: 'C’est la compétence que j’ai le moins pratiquée : je souhaite la renforcer.',
   },
   {
-    code: 'C4 · BD',
+    id: 'donnees',
     verb: 'Gérer',
-    official: 'Gérer des données de l’information',
-    text: 'Concevoir des bases de données et exploiter leurs données.',
-    example: 'La base de données du portail RH, avec SQL, PL/SQL et Neo4j.',
+    title: 'Concevoir et exploiter des bases de données',
+    text: 'Organiser les données, écrire les requêtes et garder les informations fiables.',
+    before: 'Des requêtes SQL simples sur des bases déjà prêtes.',
+    now: 'Je conçois une base complète, du schéma aux requêtes, en SQL comme avec Neo4j.',
+    proofs: [
+      { label: 'Portail RH (stage)', href: '#experience-portail-rh', comment: 'Base de données des tickets, de la FAQ et des actualités.' },
+      { label: 'Site e-commerce', href: '#projet-ecommerce', comment: 'Produits, utilisateurs, paniers et commandes.' },
+    ],
   },
   {
-    code: 'C5 · PRJ',
+    id: 'projet',
     verb: 'Conduire',
-    official: 'Conduire un projet',
-    text: 'Mener un projet, de l’analyse du besoin jusqu’à la livraison.',
-    example: 'L’analyse des besoins du client pour le site e-commerce.',
+    title: 'Mener un projet, du besoin à la livraison',
+    text: 'Comprendre ce que veut le client, organiser le travail, puis livrer.',
+    before: 'Suivre un sujet déjà défini par les enseignants.',
+    now: 'Je recueille moi-même les besoins en entretien et je les transforme en solution.',
+    proofs: [
+      { label: 'Besoin client', href: '#projet-besoin-client', comment: 'Besoins recueillis en entretien avec le client.' },
+      { label: 'Portail RH (stage)', href: '#experience-portail-rh', comment: 'Analyse des besoins des utilisateurs du service RH.' },
+      { label: 'Site e-commerce', href: '#projet-ecommerce', comment: 'Besoins du client analysés avant de concevoir la solution.' },
+    ],
   },
   {
-    code: 'C6 · EQP',
+    id: 'equipe',
     verb: 'Collaborer',
-    official: 'Travailler dans une équipe informatique',
-    text: 'Travailler efficacement avec une équipe et des clients.',
-    example: 'Les projets menés en équipe pour de vrais clients.',
+    title: 'Travailler en équipe et avec des clients',
+    text: 'Se répartir le travail, communiquer et s’adapter aux autres.',
+    before: 'Des travaux de groupe entre étudiants.',
+    now: 'Des projets en équipe pour de vrais clients, et le travail au sein d’une entreprise.',
+    proofs: [
+      { label: 'Site e-commerce', href: '#projet-ecommerce', comment: 'Projet mené en équipe pour un client.' },
+      { label: 'Besoin client', href: '#projet-besoin-client', comment: 'Solution conçue en équipe avec le client.' },
+      { label: 'Sogéa', href: '#experience-sogea', comment: 'Travail en équipe et en autonomie.' },
+    ],
   },
 ];
 
@@ -247,3 +309,6 @@ export const hobbies = {
     ] satisfies Song[],
   },
 };
+
+/** Compétences qui citent un projet ou une expérience comme preuve (liens dans les deux sens). */
+export const competencesFor = (anchorId: string) => competences.filter((c) => c.proofs.some((p) => p.href === `#${anchorId}`));

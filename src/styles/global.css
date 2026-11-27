@@ -61,6 +61,17 @@
   section[id] {
     scroll-margin-top: 72px;
   }
+  /* Projet ou expérience ouvert depuis une compétence : un contour s'allume brièvement */
+  .proof-target {
+    scroll-margin-top: 96px;
+  }
+  .proof-target:target {
+    animation: proof-flash 2s ease-out;
+  }
+  @keyframes proof-flash {
+    0%, 40% { box-shadow: 0 0 0 3px var(--color-accent); }
+    100% { box-shadow: 0 0 0 3px transparent; }
+  }
   h1, h2, h3 {
     text-wrap: balance;
   }

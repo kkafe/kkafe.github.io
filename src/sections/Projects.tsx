@@ -4,6 +4,7 @@ import { projects, type Project } from '../data/content';
 import TechLogo from '../components/TechLogo';
 import SectionHeader from '../components/SectionHeader';
 import { ArrowIcon } from '../components/UiIcons';
+import CompetenceLinks from '../components/CompetenceLinks';
 import { fadeUp, inView, stagger } from '../animations/variants';
 
 /** Carte de projet : se soulève au survol, un léger halo suit la souris et un trait d'accent se trace en haut. */
@@ -15,10 +16,14 @@ function ProjectCard({ p, n }: { p: Project; n: number }) {
   };
   return (
     <article
+      id={p.id}
       onPointerMove={onMove}
-      className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface p-7 transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_24px_50px_-28px_rgba(22,24,29,0.4)]"
+      className="proof-target group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface p-7 transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_24px_50px_-28px_rgba(22,24,29,0.4)]"
       style={{ backgroundImage: 'radial-gradient(320px circle at var(--x, -200px) var(--y, -200px), color-mix(in oklab, var(--color-accent) 7%, transparent), transparent 70%)' }}
     >
+      {p.image && (
+        <img src={p.image} alt={`Capture d’écran du projet ${p.title}`} loading="lazy" decoding="async" className="-mx-7 -mt-7 mb-6 aspect-[16/9] w-[calc(100%+3.5rem)] max-w-none object-cover" />
+      )}
       <span aria-hidden className="absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 bg-accent transition-transform duration-500 ease-out-expo group-hover:scale-x-100" />
       <div className="flex items-center justify-between gap-4">
         <span className="rounded-full bg-accent-soft px-3 py-1 text-[0.82rem] font-medium text-accent">{p.category}</span>
@@ -37,6 +42,7 @@ function ProjectCard({ p, n }: { p: Project; n: number }) {
           ))}
         </ul>
       )}
+      <CompetenceLinks anchorId={p.id} />
       {(p.tech || p.link) && (
         <div className="mt-auto flex items-center justify-between gap-4 pt-6">
           <span className="flex flex-wrap gap-2">

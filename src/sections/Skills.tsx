@@ -5,7 +5,7 @@ import InfoCardDialog, { type InfoCardData } from '../components/InfoCardDialog'
 import { otherSkills, toolGroups } from '../data/content';
 import TechLogo, { type TechLogoName } from '../components/TechLogo';
 import SectionHeader from '../components/SectionHeader';
-import ButSkillsAccordion from '../components/ButSkillsAccordion';
+import SkillsAccordion from '../components/SkillsAccordion';
 import { fadeUp, inView, stagger } from '../animations/variants';
 
 export default function Skills() {
@@ -14,10 +14,10 @@ export default function Skills() {
   return (
     <section id="competences" data-mood="competences" aria-labelledby="skills-title" className="mood-panel">
       <div className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8 md:py-32">
-        <SectionHeader id="skills-title" label="Compétences" title="Compétences du BUT" intro="Les six compétences du BUT Informatique, et où je les ai mises en pratique." />
+        <SectionHeader id="skills-title" label="Compétences" title="Mes compétences" intro="Ce que je sais faire, comment j’ai progressé depuis ma première année, et les projets qui le prouvent. Survolez une compétence pour la découvrir." />
 
         <div className="mt-14">
-          <ButSkillsAccordion />
+          <SkillsAccordion />
         </div>
 
         <h3 className="mt-28 text-[clamp(1.6rem,1.3rem+1vw,2.1rem)] font-semibold tracking-[-0.01em]">Langages et outils</h3>

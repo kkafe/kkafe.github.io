@@ -5,6 +5,7 @@ import { CheckIcon, CopyIcon, PinIcon } from '../components/UiIcons';
 import GithubOriginal from 'devicons-react/icons/GithubOriginal';
 import { LinkedinLogo, MailLogo } from '../components/SocialLogos';
 import { ease, fadeUp, inView, stagger } from '../animations/variants';
+import ContactForm from '../components/ContactForm';
 
 export default function Contact() {
   const [copied, setCopied] = useState(false);
@@ -28,7 +29,8 @@ export default function Contact() {
         className="relative mx-auto max-w-6xl overflow-hidden rounded-3xl bg-accent px-7 py-16 text-on-accent sm:px-12 md:px-16 md:py-20"
       >
         <div aria-hidden className="grid-bg absolute inset-0 opacity-15" />
-        <div className="relative max-w-2xl">
+        <div className="relative grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
+        <div>
           <m.p variants={fadeUp} className="text-[0.85rem] font-medium tracking-[0.12em] uppercase opacity-80">
             Contact
           </m.p>
@@ -59,6 +61,10 @@ export default function Contact() {
             <li><a href={person.github} className="link-line inline-flex items-center gap-2 pb-0.5"><span className="grid size-7 place-items-center rounded-full bg-white"><span className="inline-flex"><GithubOriginal size={16} aria-hidden="true" /></span></span> GitHub</a></li>
             <li className="inline-flex items-center gap-2"><PinIcon /> {person.location}</li>
           </m.ul>
+        </div>
+        <m.div variants={fadeUp}>
+          <ContactForm />
+        </m.div>
         </div>
       </m.div>
     </section>
