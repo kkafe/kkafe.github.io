@@ -224,6 +224,7 @@ import fortniteImg from '../assets/loisirs/fortnite.webp';
 import xxxImg from '../assets/loisirs/xxxtentacion.webp';
 import hamzaImg from '../assets/loisirs/hamza.webp';
 import werenoiImg from '../assets/loisirs/werenoi.webp';
+import fcImg from '../assets/loisirs/fc-27.webp';
 
 export type Game = { title: string; genre: string; studio: string; image?: string; colors: [string, string] };
 export type Song = { title: string; artist: string; style: string; image?: string; colors: [string, string] };
@@ -236,15 +237,15 @@ export const hobbies = {
       { title: 'Rocket League', genre: 'Football en voiture', studio: 'Psyonix', image: rocketImg, colors: ['#1565c0', '#ff7a18'] },
       { title: 'GTA VI', genre: 'Monde ouvert', studio: 'Rockstar Games', image: gtaImg, colors: ['#2e7d32', '#f9a825'] },
       { title: 'Call of Duty: Warzone', genre: 'Battle royale', studio: 'Activision', image: codImg, colors: ['#263238', '#8d6e63'] },
-      { title: 'FIFA', genre: 'Football', studio: 'EA Sports', colors: ['#00796b', '#7cb342'] },
+      { title: 'EA Sports FC 27', genre: 'Football', studio: 'EA Sports', image: fcImg, colors: ['#00796b', '#7cb342'] },
     ] satisfies Game[],
   },
   music: {
-    text: 'Surtout du rap, français, belge et américain : les morceaux que j’écoute en boucle.',
+    text: 'Des rappeurs français, belges et américains : les morceaux que j’écoute en boucle.',
     list: [
-      { title: 'Life', artist: 'Hamza', style: 'Rap belge', image: hamzaImg, colors: ['#3949ab', '#ec407a'] },
-      { title: 'Jamal', artist: 'Werenoi', style: 'Rap français', image: werenoiImg, colors: ['#bf360c', '#ffb300'] },
-      { title: 'Before I Close My Eyes', artist: 'XXXTentacion', style: 'Rap américain', image: xxxImg, colors: ['#212121', '#78909c'] },
+      { title: 'Life', artist: 'Hamza', style: 'Rappeur belge', image: hamzaImg, colors: ['#3949ab', '#ec407a'] },
+      { title: 'Jamal', artist: 'Werenoi', style: 'Rappeur français', image: werenoiImg, colors: ['#bf360c', '#ffb300'] },
+      { title: 'Before I Close My Eyes', artist: 'XXXTentacion', style: 'Rappeur américain', image: xxxImg, colors: ['#212121', '#78909c'] },
     ] satisfies Song[],
   },
 };
