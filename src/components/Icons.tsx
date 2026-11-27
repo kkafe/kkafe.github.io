@@ -17,15 +17,6 @@ const base = (props: SVGProps<SVGSVGElement>) => ({
 export const PinIcon = (p: SVGProps<SVGSVGElement>) => (
   <svg {...base(p)}><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z" /><circle cx="12" cy="9.5" r="2.5" /></svg>
 );
-export const MailIcon = (p: SVGProps<SVGSVGElement>) => (
-  <svg {...base(p)}><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m4 7 8 6 8-6" /></svg>
-);
-export const CodeIcon = (p: SVGProps<SVGSVGElement>) => (
-  <svg {...base(p)}><path d="m8 8-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14" /></svg>
-);
-export const LinkedinIcon = (p: SVGProps<SVGSVGElement>) => (
-  <svg {...base(p)}><rect x="3" y="3" width="18" height="18" rx="3" /><path d="M8 10.5V16M8 7.6v.1M12 16v-3.2a2.3 2.3 0 0 1 4.6 0V16M12 10.5V16" /></svg>
-);
 export const DownloadIcon = (p: SVGProps<SVGSVGElement>) => (
   <svg {...base(p)}><path d="M12 4v11M7 10l5 5 5-5M5 20h14" /></svg>
 );
