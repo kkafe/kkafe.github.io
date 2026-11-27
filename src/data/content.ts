@@ -166,3 +166,50 @@ export const homes: Trip[] = [
 export const contact = {
   sentence: 'Pour une opportunité de stage, un projet ou une question, n’hésitez pas à me contacter.',
 };
+
+// Les 6 compétences du BUT Informatique : verbe, intitulé officiel, phrase courte et exemple concret
+export type ButSkill = { code: string; verb: string; official: string; text: string; example: string };
+export const butSkills: ButSkill[] = [
+  {
+    code: 'C1 · DEV',
+    verb: 'Réaliser',
+    official: 'Réaliser un développement d’application',
+    text: 'Transformer un besoin en application qui fonctionne.',
+    example: 'Le site e-commerce en équipe et le portail RH développé en stage.',
+  },
+  {
+    code: 'C2 · OPT',
+    verb: 'Optimiser',
+    official: 'Optimiser des applications informatiques',
+    text: 'Rendre un programme plus rapide et plus fiable.',
+    example: 'Les algorithmes de la simulation du Jeu de la vie.',
+  },
+  {
+    code: 'C3 · ADM',
+    verb: 'Administrer',
+    official: 'Administrer des systèmes informatiques communicants complexes',
+    text: 'Installer, configurer et maintenir des systèmes et des réseaux.',
+    example: 'L’inventaire du matériel et des logiciels informatiques chez Sogéa.',
+  },
+  {
+    code: 'C4 · BD',
+    verb: 'Gérer',
+    official: 'Gérer des données de l’information',
+    text: 'Concevoir des bases de données et exploiter leurs données.',
+    example: 'La base de données du portail RH, avec SQL, PL/SQL et Neo4j.',
+  },
+  {
+    code: 'C5 · PRJ',
+    verb: 'Conduire',
+    official: 'Conduire un projet',
+    text: 'Mener un projet, de l’analyse du besoin jusqu’à la livraison.',
+    example: 'L’analyse des besoins du client pour le site e-commerce.',
+  },
+  {
+    code: 'C6 · EQP',
+    verb: 'Collaborer',
+    official: 'Travailler dans une équipe informatique',
+    text: 'Travailler efficacement avec une équipe et des clients.',
+    example: 'Les projets menés en équipe pour de vrais clients.',
+  },
+];

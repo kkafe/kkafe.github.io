@@ -5,6 +5,7 @@ import InfoCard, { type InfoCardData } from '../components/InfoCard';
 import { otherSkills, toolGroups } from '../data/content';
 import Logo, { type LogoName } from '../components/Logo';
 import SectionHeader from '../components/SectionHeader';
+import ButCompetences from '../components/ButCompetences';
 import { fadeUp, inView, stagger } from '../components/motion';
 
 export default function Skills() {
@@ -13,9 +14,15 @@ export default function Skills() {
   return (
     <section id="competences" aria-labelledby="skills-title">
       <div className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8 md:py-32">
-        <SectionHeader id="skills-title" label="Compétences" title="Compétences techniques" />
+        <SectionHeader id="skills-title" label="Compétences" title="Compétences du BUT" intro="Les six compétences du BUT Informatique, et où je les ai mises en pratique." />
 
-        <motion.div variants={stagger(0.08)} initial="hidden" whileInView="show" viewport={inView} className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-14">
+          <ButCompetences />
+        </div>
+
+        <h3 className="mt-28 text-[clamp(1.6rem,1.3rem+1vw,2.1rem)] font-semibold tracking-[-0.01em]">Langages et outils</h3>
+
+        <motion.div variants={stagger(0.08)} initial="hidden" whileInView="show" viewport={inView} className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {toolGroups.map((group) => (
             <motion.div key={group.title} variants={fadeUp} className="rounded-2xl border border-line bg-surface p-6">
               <h3 className="text-[0.82rem] font-medium tracking-[0.08em] text-muted uppercase">{group.title}</h3>
