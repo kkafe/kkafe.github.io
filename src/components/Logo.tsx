@@ -33,18 +33,9 @@ const Database = makeDatabase('#00758F');
 // PL/SQL : même icône, en rouge Oracle
 const OracleDatabase = makeDatabase('#C74634');
 
-/** Vibe coding : une étincelle, symbole courant de l'IA. */
-const Sparkle: FunctionComponent<IconProps> = ({ size = 28 }) => (
-  <svg viewBox="0 0 24 24" width={size} height={size} aria-hidden>
-    <defs>
-      <linearGradient id="vibe" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stopColor="#8B5CF6" />
-        <stop offset="1" stopColor="#EC4899" />
-      </linearGradient>
-    </defs>
-    <path d="M12 2.5c.6 4.7 2.8 6.9 7.5 7.5-4.7.6-6.9 2.8-7.5 7.5-.6-4.7-2.8-6.9-7.5-7.5 4.7-.6 6.9-2.8 7.5-7.5Z" fill="url(#vibe)" />
-    <path d="M19 15.5c.25 1.9 1.1 2.75 3 3-1.9.25-2.75 1.1-3 3-.25-1.9-1.1-2.75-3-3 1.9-.25 2.75-1.1 3-3Z" fill="url(#vibe)" />
-  </svg>
+/** Vibe coding : le symbole de Claude, l'IA utilisée (fichier officiel publié sur Wikimedia Commons). */
+const ClaudeSymbol: FunctionComponent<IconProps> = ({ size = 28 }) => (
+  <img src="https://upload.wikimedia.org/wikipedia/commons/b/b0/Claude_AI_symbol.svg" width={size} height={size} alt="" loading="lazy" />
 );
 
 const LOGOS = {
@@ -67,7 +58,7 @@ const LOGOS = {
   Oracle: OracleDatabase,
   MySQL: MysqlOriginal,
   Neo4j: Neo4jOriginal,
-  'Vibe coding': Sparkle,
+  'Vibe coding': ClaudeSymbol,
 } satisfies Record<string, FunctionComponent<IconProps>>;
 
 export type LogoName = keyof typeof LOGOS;

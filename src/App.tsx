@@ -7,7 +7,7 @@ import Experience from './sections/Experience';
 import Projects from './sections/Projects';
 import Skills from './sections/Skills';
 import Education from './sections/Education';
-import Voyages from './sections/Voyages';
+import Loisirs from './sections/Loisirs';
 import Contact from './sections/Contact';
 import Footer from './sections/Footer';
 
@@ -27,7 +27,7 @@ export default function App() {
         <Projects />
         <Skills />
         <Education />
-        <Voyages />
+        <Loisirs />
         <Contact />
       </main>
       <Footer />

@@ -25,6 +25,7 @@ export const nav = [
   { id: 'projets', label: 'Projets' },
   { id: 'competences', label: 'Compétences' },
   { id: 'formation', label: 'Formation' },
+  { id: 'loisirs', label: 'Loisirs' },
   { id: 'contact', label: 'Contact' },
 ];
 
@@ -213,3 +214,15 @@ export const butSkills: ButSkill[] = [
     example: 'Les projets menés en équipe pour de vrais clients.',
   },
 ];
+
+// Loisirs : jeux vidéo et musique. « favorites » : ajoutez vos jeux, artistes ou styles préférés (ils s'affichent en étiquettes).
+export const hobbies = {
+  games: {
+    text: 'Passionné de jeux vidéo, j’aime autant y jouer que comprendre comment ils sont conçus. Cette curiosité m’a poussé à développer mon propre jeu : un Bomberman réalisé avec le moteur Godot.',
+    favorites: [] as string[],
+  },
+  music: {
+    text: 'La musique m’accompagne au quotidien, pour me détendre comme pour me concentrer quand je code.',
+    favorites: [] as string[],
+  },
+};

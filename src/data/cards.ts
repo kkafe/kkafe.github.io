@@ -197,10 +197,10 @@ export const skillCards: Record<LogoName, Card> = {
     summary: 'Développer en décrivant à une IA ce que l’on veut construire, puis relire, tester et corriger le code qu’elle propose.',
     facts: [
       { label: 'Apparu en', value: '2025' },
-      { label: 'Outils', value: 'Assistants IA' },
+      { label: 'Outil', value: 'Claude' },
       { label: 'Atout', value: 'Prototyper vite' },
     ],
-    usage: 'Prototypage rapide, en gardant la main sur la relecture et les tests.',
+    usage: 'Prototypage rapide avec Claude, en gardant la main sur la relecture et les tests.',
   },
   Godot: {
     kind: 'Moteur de jeu',
