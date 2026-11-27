@@ -1,6 +1,6 @@
 /*
  * Les 6 compétences du BUT Informatique, en accordéon.
- * Ordinateur : six colonnes côte à côte, la colonne choisie s'élargit pour présenter la compétence.
+ * Ordinateur : six colonnes côte à côte, la colonne survolée s'élargit pour présenter la compétence.
  * Téléphone : six lignes empilées, la ligne choisie s'ouvre.
  */
 import { motion } from 'motion/react';
@@ -19,6 +19,8 @@ export default function ButCompetences() {
         return (
           <div
             key={s.code}
+            // Ouverture au survol de la souris (le clic et le clavier marchent toujours, utiles sur téléphone)
+            onPointerEnter={(e) => e.pointerType === 'mouse' && setActive(i)}
             style={{ flexGrow: on ? 7 : 1 }}
             className={`relative min-w-0 overflow-hidden rounded-2xl border transition-[flex-grow,background-color,border-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:basis-0 ${
               on ? 'border-accent bg-accent text-on-accent' : 'border-line bg-surface hover:bg-accent-soft'
@@ -31,6 +33,7 @@ export default function ButCompetences() {
               aria-expanded={on}
               aria-controls={`but-panel-${i}`}
               onClick={() => setActive(i)}
+              onFocus={() => setActive(i)}
               className={`flex w-full cursor-pointer items-center gap-4 px-5 py-4 text-left md:h-full md:flex-col md:items-start md:justify-between md:py-6 ${
                 on ? 'md:pointer-events-none md:absolute md:inset-0 md:opacity-0' : ''
               }`}
