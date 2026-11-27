@@ -72,7 +72,7 @@ export default function LegalNotice({ open, onClose }: { open: boolean; onClose:
             <Part title="Droits">
               <p>
                 Les textes, la photo de profil et le CV m’appartiennent. Les photos des monuments sont sous licences Creative
-                Commons : leur auteur est cité sur chaque carte de pays. Les logos appartiennent à leurs marques.
+                Commons : leur auteur est cité sur chaque carte de pays. Les logos, les affiches de jeux et les pochettes d’albums appartiennent à leurs éditeurs et à leurs artistes.
               </p>
             </Part>
 

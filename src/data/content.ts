@@ -216,27 +216,35 @@ export const butSkills: ButSkill[] = [
 ];
 
 // Loisirs : jeux vidéo et musique préférés.
-// « colors » : les deux couleurs du dégradé de chaque affiche (visuels originaux, sans image protégée).
-export type Game = { title: string; genre: string; studio: string; colors: [string, string] };
-export type Song = { title: string; artist: string; style: string; colors: [string, string] };
+// « image » : l'affiche ou la pochette (dossier assets/loisirs). Sans image, un dégradé avec les deux « colors » la remplace.
+import codImg from '../assets/loisirs/call-of-duty.webp';
+import gtaImg from '../assets/loisirs/gta-6.webp';
+import rocketImg from '../assets/loisirs/rocket-league.webp';
+import fortniteImg from '../assets/loisirs/fortnite.webp';
+import xxxImg from '../assets/loisirs/xxxtentacion.webp';
+import hamzaImg from '../assets/loisirs/hamza.webp';
+import werenoiImg from '../assets/loisirs/werenoi.webp';
+
+export type Game = { title: string; genre: string; studio: string; image?: string; colors: [string, string] };
+export type Song = { title: string; artist: string; style: string; image?: string; colors: [string, string] };
 
 export const hobbies = {
   games: {
     text: 'Passionné de jeux vidéo, j’aime autant y jouer que comprendre comment ils sont conçus. Cette curiosité m’a poussé à développer mon propre jeu : un Bomberman réalisé avec Godot.',
     list: [
-      { title: 'Fortnite', genre: 'Battle royale', studio: 'Epic Games', colors: ['#7b3fe4', '#29b6f6'] },
-      { title: 'Rocket League', genre: 'Football en voiture', studio: 'Psyonix', colors: ['#1565c0', '#ff7a18'] },
-      { title: 'GTA V', genre: 'Monde ouvert', studio: 'Rockstar Games', colors: ['#2e7d32', '#f9a825'] },
-      { title: 'Call of Duty', genre: 'Jeu de tir', studio: 'Activision', colors: ['#263238', '#8d6e63'] },
+      { title: 'Fortnite', genre: 'Battle royale', studio: 'Epic Games', image: fortniteImg, colors: ['#7b3fe4', '#29b6f6'] },
+      { title: 'Rocket League', genre: 'Football en voiture', studio: 'Psyonix', image: rocketImg, colors: ['#1565c0', '#ff7a18'] },
+      { title: 'GTA VI', genre: 'Monde ouvert', studio: 'Rockstar Games', image: gtaImg, colors: ['#2e7d32', '#f9a825'] },
+      { title: 'Call of Duty: Warzone', genre: 'Battle royale', studio: 'Activision', image: codImg, colors: ['#263238', '#8d6e63'] },
       { title: 'FIFA', genre: 'Football', studio: 'EA Sports', colors: ['#00796b', '#7cb342'] },
     ] satisfies Game[],
   },
   music: {
     text: 'Surtout du rap, français, belge et américain : les morceaux que j’écoute en boucle.',
     list: [
-      { title: 'Life', artist: 'Hamza', style: 'Rap belge', colors: ['#3949ab', '#ec407a'] },
-      { title: 'Jamal', artist: 'Werenoi', style: 'Rap français', colors: ['#bf360c', '#ffb300'] },
-      { title: 'Before I Close My Eyes', artist: 'XXXTentacion', style: 'Rap américain', colors: ['#212121', '#78909c'] },
+      { title: 'Life', artist: 'Hamza', style: 'Rap belge', image: hamzaImg, colors: ['#3949ab', '#ec407a'] },
+      { title: 'Jamal', artist: 'Werenoi', style: 'Rap français', image: werenoiImg, colors: ['#bf360c', '#ffb300'] },
+      { title: 'Before I Close My Eyes', artist: 'XXXTentacion', style: 'Rap américain', image: xxxImg, colors: ['#212121', '#78909c'] },
     ] satisfies Song[],
   },
 };

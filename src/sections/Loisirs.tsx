@@ -66,33 +66,39 @@ function Voyages() {
   );
 }
 
-/* ---------- Jeux vidéo : une affiche originale par jeu (dégradé + titre), qui se soulève au survol ---------- */
+/* ---------- Jeux vidéo : une affiche par jeu, qui se soulève au survol ---------- */
 function Games() {
   return (
     <div>
       <p className="max-w-2xl text-[1.15rem] leading-relaxed text-muted">{hobbies.games.text}</p>
-      <motion.ul variants={stagger(0.07)} initial="hidden" animate="show" className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-        {hobbies.games.list.map((g, i) => (
-          <motion.li key={g.title} variants={fadeUp}>
-            <article
-              className="group relative flex aspect-[3/4] flex-col justify-between overflow-hidden rounded-2xl p-5 text-white shadow-[0_18px_40px_-22px_rgba(0,0,0,0.6)] transition-transform duration-300 ease-out hover:-translate-y-1.5 hover:rotate-[-1deg]"
-              style={{ background: `linear-gradient(150deg, ${g.colors[0]}, ${g.colors[1]})` }}
+      <motion.ul variants={stagger(0.07)} initial="hidden" animate="show" className="mt-10 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-5">
+        {hobbies.games.list.map((g) => (
+          <motion.li key={g.title} variants={fadeUp} className="group">
+            <div
+              className="relative aspect-[3/4] overflow-hidden rounded-2xl shadow-[0_22px_40px_-24px_rgba(0,0,0,0.7)] transition-transform duration-300 ease-out group-hover:-translate-y-1.5"
+              style={g.image ? undefined : { background: `linear-gradient(150deg, ${g.colors[0]}, ${g.colors[1]})` }}
             >
-              {/* Motif de lignes, pour donner du relief à l'affiche */}
+              {g.image ? (
+                <img
+                  src={g.image}
+                  alt={`Affiche de ${g.title}`}
+                  loading="lazy"
+                  className="size-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                />
+              ) : (
+                // Pas d'affiche : titre sur dégradé
+                <span className="absolute inset-0 flex items-end p-5 text-[1.6rem] leading-tight font-semibold text-white">{g.title}</span>
+              )}
+              {/* Reflet lumineux au survol */}
               <span
                 aria-hidden="true"
-                className="absolute inset-0 opacity-20 transition-opacity duration-300 group-hover:opacity-30"
-                style={{ backgroundImage: 'repeating-linear-gradient(120deg, rgba(255,255,255,.35) 0 1px, transparent 1px 14px)' }}
+                className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-transparent via-white/0 to-white/0 transition-colors duration-500 group-hover:via-white/10 group-hover:to-white/25"
               />
-              <span aria-hidden="true" className="relative text-[0.8rem] font-medium tracking-[0.12em] opacity-80">
-                {String(i + 1).padStart(2, '0')}
-              </span>
-              <div className="relative">
-                <h3 className="text-[clamp(1.3rem,1rem+1vw,1.75rem)] leading-[1.05] font-semibold tracking-[-0.01em]">{g.title}</h3>
-                <p className="mt-2 text-[0.88rem] opacity-90">{g.genre}</p>
-                <p className="text-[0.8rem] opacity-70">{g.studio}</p>
-              </div>
-            </article>
+            </div>
+            <h3 className="mt-3 text-[1.05rem] leading-tight font-medium">{g.title}</h3>
+            <p className="text-[0.9rem] text-muted">
+              {g.genre} · {g.studio}
+            </p>
           </motion.li>
         ))}
       </motion.ul>
@@ -100,35 +106,34 @@ function Games() {
   );
 }
 
-/* ---------- Musique : une pochette originale par morceau, avec un égaliseur qui s'anime au survol ---------- */
+/* ---------- Musique : la pochette de chaque morceau, avec un égaliseur qui s'anime au survol ---------- */
 function Music() {
   return (
     <div>
       <p className="max-w-2xl text-[1.15rem] leading-relaxed text-muted">{hobbies.music.text}</p>
-      <motion.ul variants={stagger(0.08)} initial="hidden" animate="show" className="mt-10 grid gap-6 sm:grid-cols-3">
+      <motion.ul variants={stagger(0.08)} initial="hidden" animate="show" className="mt-10 grid gap-8 sm:grid-cols-3 sm:gap-6">
         {hobbies.music.list.map((m) => (
           <motion.li key={m.title} variants={fadeUp} className="group">
             <div
-              className="relative grid aspect-square place-items-center overflow-hidden rounded-2xl text-white shadow-[0_18px_40px_-22px_rgba(0,0,0,0.6)]"
-              style={{ background: `radial-gradient(circle at 30% 25%, ${m.colors[1]}, ${m.colors[0]} 70%)` }}
-              aria-hidden="true"
+              className="relative aspect-square overflow-hidden rounded-2xl shadow-[0_22px_40px_-24px_rgba(0,0,0,0.7)] transition-transform duration-300 ease-out group-hover:-translate-y-1.5"
+              style={m.image ? undefined : { background: `radial-gradient(circle at 30% 25%, ${m.colors[1]}, ${m.colors[0]} 70%)` }}
             >
-              {/* Ondes concentriques */}
-              <span className="absolute size-[70%] rounded-full border border-white/25" />
-              <span className="absolute size-[48%] rounded-full border border-white/25" />
-              <span className="absolute size-[26%] rounded-full border border-white/30" />
-              {/* Égaliseur : immobile, il s'anime au survol */}
-              <span className="relative flex h-14 items-end gap-1.5">
-                {[0.5, 0.9, 0.65, 1, 0.75].map((h, i) => (
-                  <span
-                    key={i}
-                    className="eq-bar w-2 rounded-full bg-white"
-                    style={{ height: `${h * 100}%`, animationDelay: `${i * 0.12}s` }}
-                  />
+              {m.image && (
+                <img
+                  src={m.image}
+                  alt={`Pochette de ${m.title}, ${m.artist}`}
+                  loading="lazy"
+                  className="size-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                />
+              )}
+              {/* Égaliseur dans une pastille, en bas à droite : il s'anime au survol */}
+              <span aria-hidden="true" className="absolute right-3 bottom-3 flex h-10 items-end gap-1 rounded-full bg-black/55 px-3 py-2.5 backdrop-blur-sm">
+                {[0.5, 0.9, 0.65, 1].map((h, i) => (
+                  <span key={i} className="eq-bar w-1 rounded-full bg-white" style={{ height: `${h * 100}%`, animationDelay: `${i * 0.12}s` }} />
                 ))}
               </span>
             </div>
-            <h3 className="mt-4 text-[1.25rem] font-medium leading-tight">{m.title}</h3>
+            <h3 className="mt-4 text-[1.2rem] leading-tight font-medium">{m.title}</h3>
             <p className="text-muted">
               {m.artist} · {m.style}
             </p>
